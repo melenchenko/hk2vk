@@ -16,7 +16,6 @@ const Quest = ({ id, go, fetchedUser }) => (
 	<Panel id={id}>
 		<PanelHeader 
 			left={<HeaderButton>
-				<Icon24Place onClick={go} data-to="map"/>
 				<Icon24Add onClick={go} data-to="addquest"/>
 			</HeaderButton>}>
 			Quest

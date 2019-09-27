@@ -17,7 +17,6 @@ const Profile = ({ id, go, fetchedUser }) => (
 		<PanelHeader 
 			left={<HeaderButton>
 				<Icon24Place onClick={go} data-to="map"/>
-				<Icon24Add onClick={go} data-to="addquest"/>
 			</HeaderButton>}>
 			Profile
 		</PanelHeader>

@@ -15,11 +15,8 @@ import Icon24Add from '@vkontakte/icons/dist/24/add';
 const Home = ({ id, go, fetchedUser }) => (
 	<Panel id={id}>
 		<PanelHeader 
-			left={<HeaderButton>
-				<Icon24Place onClick={go} data-to="map"/>
-				<Icon24Add onClick={go} data-to="addquest"/>
-			</HeaderButton>}>
-			Example
+			left={<HeaderButton key="addquest"><Icon24Add onClick={go} data-to="addquest"/></HeaderButton>}>
+			Catalog
 		</PanelHeader>
 		{fetchedUser &&
 		<Group title="User Data Fetched with VK Connect">
