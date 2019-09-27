@@ -6,6 +6,13 @@ import '@vkontakte/vkui/dist/vkui.css';
 
 import Home from './panels/Home';
 import Persik from './panels/Persik';
+import Quest from './panels/Quest';
+import MyQuests from './panels/MyQuests';
+import Status from './panels/Status';
+import Profile from './panels/Profile';
+import Users from './panels/Users';
+import Map from './panels/Map';
+import AddQuest from './panels/AddQuest';
 import { Epic, Tabbar, TabbarItem } from '@vkontakte/vkui';
 
 const App = () => {
@@ -37,16 +44,35 @@ const App = () => {
 		<Epic tabbar={
 			<Tabbar>
 				<TabbarItem onClick={go} data-to='home'>
-					HOME
+					CATALOG
 				</TabbarItem>
-				<TabbarItem onClick={go} data-to='persik'>
-					PERSIK
+				<TabbarItem onClick={go} data-to='quest'>
+					QUEST
+				</TabbarItem>
+				<TabbarItem onClick={go} data-to='myquests'>
+					MY QUESTS
+				</TabbarItem>
+				<TabbarItem onClick={go} data-to='status'>
+					STATUS
+				</TabbarItem>
+				<TabbarItem onClick={go} data-to='profile'>
+					PROFILE
+				</TabbarItem>
+				<TabbarItem onClick={go} data-to='users'>
+					USERS
 				</TabbarItem>
 			</Tabbar>
 		}>
 			<View activePanel={activePanel} popout={popout}>
 				<Home id='home' fetchedUser={fetchedUser} go={go} />
 				<Persik id='persik' go={go} />
+				<Quest id='quest' go={go} />
+				<MyQuests id='myquests' go={go} />
+				<Status id='status' go={go} />
+				<Profile id='profile' go={go} />
+				<Users id='users' go={go} />
+				<Map id='map' go={go} />
+				<AddQuest id='addquest' go={go} />
 			</View>
 		</Epic>
 	);

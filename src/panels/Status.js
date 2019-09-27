@@ -12,14 +12,14 @@ import { HeaderButton } from '@vkontakte/vkui';
 import Icon24Place from '@vkontakte/icons/dist/24/place';
 import Icon24Add from '@vkontakte/icons/dist/24/add';
 
-const Home = ({ id, go, fetchedUser }) => (
+const Status = ({ id, go, fetchedUser }) => (
 	<Panel id={id}>
 		<PanelHeader 
 			left={<HeaderButton>
 				<Icon24Place onClick={go} data-to="map"/>
 				<Icon24Add onClick={go} data-to="addquest"/>
 			</HeaderButton>}>
-			Example
+			Status
 		</PanelHeader>
 		{fetchedUser &&
 		<Group title="User Data Fetched with VK Connect">
@@ -41,7 +41,7 @@ const Home = ({ id, go, fetchedUser }) => (
 	</Panel>
 );
 
-Home.propTypes = {
+Status.propTypes = {
 	id: PropTypes.string.isRequired,
 	go: PropTypes.func.isRequired,
 	fetchedUser: PropTypes.shape({
@@ -54,4 +54,4 @@ Home.propTypes = {
 	}),
 };
 
-export default Home;
+export default Status;
