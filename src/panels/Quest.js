@@ -37,14 +37,14 @@ class Quest extends React.Component {
 	}
 
 	getQuest(quest_id) {
-		fetch("https://lastweb.ru/stubs/hk2/getQuest.php?id=" + quest_id)
+		fetch("https://lastweb.ru/stubs/hk2/getQuest.php?id=" + quest_id + "&vk_id=" + this.props.fetchedUser.id)
 		.then(res => res.json())
 		.then(
 			(result) => {
 				console.log(result);
 				var user_list = this.state.user_list;
 				result.users.forEach((item) => {
-					user_list.push(<Div key={item.vk_id}><Link href={"/id" + item.vk_id}>{item.vk_id} {item._vk.first_name} {item._vk.last_name}</Link></Div>);
+					user_list.push(<Div key={item.vk_id}><Link href={"https://vk.com/id" + item.vk_id}>{item.vk_id} {item._vk.first_name} {item._vk.last_name}</Link></Div>);
 				});
 				this.setState({quest: result, loading: false, user_list});		
 			},
