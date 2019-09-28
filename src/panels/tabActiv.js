@@ -8,11 +8,11 @@ import Cell from '@vkontakte/vkui/dist/components/Cell/Cell';
 import Div from '@vkontakte/vkui/dist/components/Div/Div';
 import Avatar from '@vkontakte/vkui/dist/components/Avatar/Avatar';
 
-import { HeaderButton, Tabs, TabsItem, View } from '@vkontakte/vkui';
+import { HeaderButton } from '@vkontakte/vkui';
 import Icon24Place from '@vkontakte/icons/dist/24/place';
 import Icon24Add from '@vkontakte/icons/dist/24/add';
 
-class MyQuests extends React.Component {
+class AddQuest extends React.Component {
 	constructor(props) {
 		super(props);
 		this.propTypes = {
@@ -30,7 +30,7 @@ class MyQuests extends React.Component {
 	}
 
 	componentDidMount() {
-		console.log('myquests mount');
+		console.log('addquest mount');
 	}
 
 	render() {
@@ -41,7 +41,7 @@ class MyQuests extends React.Component {
 			<Panel id={id}>
 				<PanelHeader 
 					left={<HeaderButton key="addquest"><Icon24Add onClick={go} data-to="addquest"/></HeaderButton>}>
-					Мои задания
+					Add quest
 				</PanelHeader>
 				{fetchedUser &&
 				<Group title="User Data Fetched with VK Connect">
@@ -51,34 +51,20 @@ class MyQuests extends React.Component {
 					>
 						{`${fetchedUser.first_name} ${fetchedUser.last_name}`}
 					</Cell>
-				</Group>}
-				<Group title="Navigation Example">				
-						<Tabs>
-							<TabsItem onClick={() => this.setState({ activeTab1: 'tabActiv' })}>
-								Активные
-							</TabsItem>
-							<TabsItem id="tabWork">В работе</TabsItem>
-							<TabsItem id="tabReady">Выполненные</TabsItem>
-							<TabsItem id="tabMy">Размещенные мной</TabsItem>
-						</Tabs>
+                </Group>}                
+				<Group name="tabActiv">
+					<p>tabActiv new tabActiv</p>
 				</Group>
-				<div id="activeTab2">
-								<div>
-									dfkjghdfkjghf
-								</div>
-							</div>
-				<Group name="tabWork">
-					<p>tabWork</p>
-				</Group>
-				<Group name="tabReady">
-					<p>tabReady</p>
-				</Group>
-				<Group name="tabMy">
-					<p>tabMy</p>
+				<Group title="Navigation Example">
+					<Div>
+						<Button size="xl" level="2" onClick={go} data-to="persik">
+							Show me the Persik, please
+						</Button>
+					</Div>
 				</Group>
 			</Panel>
 		);
 	}
 }
 
-export default MyQuests;
+export default AddQuest;
