@@ -9,7 +9,7 @@ import Div from '@vkontakte/vkui/dist/components/Div/Div';
 import Avatar from '@vkontakte/vkui/dist/components/Avatar/Avatar';
 
 import { HeaderButton } from '@vkontakte/vkui';
-import Icon24Place from '@vkontakte/icons/dist/24/place';
+import { Link } from '@vkontakte/vkui';
 import Icon24Add from '@vkontakte/icons/dist/24/add';
 
 class Users extends React.Component {
@@ -27,37 +27,46 @@ class Users extends React.Component {
 				}),
 			}),
 		};
+		this.state = {
+			users: []
+		};
+	}
+
+	getUsers() {
+		fetch("https://lastweb.ru/stubs/hk2/getUsers.php")
+		.then(res => res.json())
+		.then(
+			(result) => {
+				console.log(result)
+				this.setState({users: result});
+			},
+			(error) => {
+				console.log(error);
+			}
+		)
 	}
 
 	componentDidMount() {
-		console.log('users mount');
+		this.getUsers();
 	}
 
 	render() {
 		let id = this.props.id;
 		let go = this.props.go;
 		let fetchedUser = this.props.fetchedUser;
+		const { users } = this.state;
+		let user_list = [];
+		users.forEach((item) => {
+			user_list.push(<Div key={item.place}><Link href={"/id" + item.vk_id}>{item.place + ". " + item.vk_id + " Баланс: " + item.balance + ". Уровень: " + item.level}</Link></Div>);
+		});
 		return (
 			<Panel id={id}>
 				<PanelHeader 
 					left={<HeaderButton key="addquest"><Icon24Add onClick={go} data-to="addquest"/></HeaderButton>}>
-					Users
+					Участники
 				</PanelHeader>
-				{fetchedUser &&
-				<Group title="User Data Fetched with VK Connect">
-					<Cell
-						before={fetchedUser.photo_200 ? <Avatar src={fetchedUser.photo_200}/> : null}
-						description={fetchedUser.city && fetchedUser.city.title ? fetchedUser.city.title : ''}
-					>
-						{`${fetchedUser.first_name} ${fetchedUser.last_name}`}
-					</Cell>
-				</Group>}
-				<Group title="Navigation Example">
-					<Div>
-						<Button size="xl" level="2" onClick={go} data-to="persik">
-							Show me the Persik, please
-						</Button>
-					</Div>
+				<Group title="Рейтинг участников">
+					<Div>{user_list}</Div>
 				</Group>
 			</Panel>
 		);

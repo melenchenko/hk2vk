@@ -76,7 +76,6 @@ class Home extends React.Component {
 		quests.forEach((item) => {
 			quest_list.push(<Div key={item.id} data-quest={item.id} onClick={goQuest}>{item.title}</Div>);
 		});
-		console.log(fetchedUser);
 		let result = <Panel id={id}>
 			<PanelHeader 
 				left={<HeaderButton key="addquest"><Icon24Add onClick={go} data-to="addquest"/></HeaderButton>}>

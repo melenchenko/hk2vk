@@ -9,7 +9,6 @@ import { Link } from '@vkontakte/vkui';
 import { HeaderButton } from '@vkontakte/vkui';
 // import Icon24Place from '@vkontakte/icons/dist/24/place';
 import Icon24Add from '@vkontakte/icons/dist/24/add';
-import connect from '@vkontakte/vk-connect';
 import PanelSpinner from '@vkontakte/vkui/dist/components/PanelSpinner/PanelSpinner';
 
 import '../globals.js';

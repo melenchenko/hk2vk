@@ -28,16 +28,34 @@ class Status extends React.Component {
 				}),
 			}),
 		};
+		this.state = {
+			user: {}
+		};
+	}
+
+	getStatus() {
+		fetch("https://lastweb.ru/stubs/hk2/getStatus.php?vk_id=" + this.props.fetchedUser.id)
+		.then(res => res.json())
+		.then(
+			(result) => {
+				console.log(result)
+				this.setState({user: result});
+			},
+			(error) => {
+				console.log(error);
+			}
+		)
 	}
 
 	componentDidMount() {
-		console.log('status mount');
+		this.getStatus();
 	}
 
 	render() {
 		let id = this.props.id;
 		let go = this.props.go;
 		let fetchedUser = this.props.fetchedUser;
+		const { user } = this.state;
 		return (
 			<Panel id={id}>
 				<PanelHeader 
@@ -53,12 +71,10 @@ class Status extends React.Component {
 						{`${fetchedUser.first_name} ${fetchedUser.last_name}`}
 					</Cell>
 				</Group>}
-				<Group title="Navigation Example">
-					<Div>
-						<Button size="xl" level="2" onClick={go} data-to="persik">
-							Show me the Persik, please
-						</Button>
-					</Div>
+				<Group title="Мои показатели">
+					<Div>{this.props.fetchedUser.id}</Div>
+					<Div>{"Баланс: " + user.balance}</Div>
+					<Div>{"Уровень: " + user.level}</Div>
 				</Group>
 			</Panel>
 		);

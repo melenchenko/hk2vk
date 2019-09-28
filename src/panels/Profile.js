@@ -45,7 +45,7 @@ class Profile extends React.Component {
 					Profile
 				</PanelHeader>
 				{fetchedUser &&
-				<Group title={"User Data Fetched with VK Connect" + fetchedUser.id}>
+				<Group title={"User Data Fetched with VK Connect"}>
 					<Cell
 						before={fetchedUser.photo_200 ? <Avatar src={fetchedUser.photo_200}/> : null}
 						description={fetchedUser.city && fetchedUser.city.title ? fetchedUser.city.title : ''}
