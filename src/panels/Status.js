@@ -19,6 +19,7 @@ class Status extends React.Component {
 			id: PropTypes.string.isRequired,
 			go: PropTypes.func.isRequired,
 			fetchedUser: PropTypes.shape({
+				id: PropTypes.string,
 				photo_200: PropTypes.string,
 				first_name: PropTypes.string,
 				last_name: PropTypes.string,

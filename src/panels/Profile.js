@@ -19,6 +19,7 @@ class Profile extends React.Component {
 			id: PropTypes.string.isRequired,
 			go: PropTypes.func.isRequired,
 			fetchedUser: PropTypes.shape({
+				id: PropTypes.string,
 				photo_200: PropTypes.string,
 				first_name: PropTypes.string,
 				last_name: PropTypes.string,
@@ -44,7 +45,7 @@ class Profile extends React.Component {
 					Profile
 				</PanelHeader>
 				{fetchedUser &&
-				<Group title="User Data Fetched with VK Connect">
+				<Group title={"User Data Fetched with VK Connect" + fetchedUser.id}>
 					<Cell
 						before={fetchedUser.photo_200 ? <Avatar src={fetchedUser.photo_200}/> : null}
 						description={fetchedUser.city && fetchedUser.city.title ? fetchedUser.city.title : ''}

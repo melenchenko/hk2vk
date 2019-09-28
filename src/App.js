@@ -20,23 +20,23 @@ import './globals.js';
 const App = () => {
 	const [activePanel, setActivePanel] = useState('home');
 	const [fetchedUser, setUser] = useState(null);
-	// const [popout, setPopout] = useState(<ScreenSpinner size='large' />);
-	const [popout, setPopout] = useState(this);
+	const [popout, setPopout] = useState(<ScreenSpinner size='large' />);
+	// const [popout, setPopout] = useState(this);
 
 	useEffect(() => {
-		// connect.subscribe(({ detail: { type, data }}) => {
-		// 	if (type === 'VKWebAppUpdateConfig') {
-		// 		const schemeAttribute = document.createAttribute('scheme');
-		// 		schemeAttribute.value = data.scheme ? data.scheme : 'client_light';
-		// 		document.body.attributes.setNamedItem(schemeAttribute);
-		// 	}
-		// });
-		// async function fetchData() {
-		// 	const user = await connect.sendPromise('VKWebAppGetUserInfo');
-		// 	setUser(user);
-		// 	setPopout(null);
-		// }
-		// fetchData();
+		connect.subscribe(({ detail: { type, data }}) => {
+			if (type === 'VKWebAppUpdateConfig') {
+				const schemeAttribute = document.createAttribute('scheme');
+				schemeAttribute.value = data.scheme ? data.scheme : 'client_light';
+				document.body.attributes.setNamedItem(schemeAttribute);
+			}
+		});
+		async function fetchData() {
+			const user = await connect.sendPromise('VKWebAppGetUserInfo');
+			setUser(user);
+			setPopout(null);
+		}
+		fetchData();
 	}, []);
 
 	const go = e => {
@@ -70,14 +70,14 @@ const App = () => {
 		}>
 			<View activePanel={activePanel} popout={popout}>
 				<Home id='home' fetchedUser={fetchedUser} go={go} goQuest={goQuest} />
-				<Persik id='persik' go={go} />
-				<Quest id='quest' go={go} />
-				<MyQuests id='myquests' go={go} />
-				<Status id='status' go={go} />
-				<Profile id='profile' go={go} />
-				<Users id='users' go={go} />
-				<Map id='map' go={go} />
-				<AddQuest id='addquest' go={go} />
+				<Persik id='persik' fetchedUser={fetchedUser} go={go} />
+				<Quest id='quest' fetchedUser={fetchedUser} go={go} />
+				<MyQuests id='myquests' fetchedUser={fetchedUser} go={go} />
+				<Status id='status' fetchedUser={fetchedUser} go={go} />
+				<Profile id='profile' fetchedUser={fetchedUser} go={go} />
+				<Users id='users' fetchedUser={fetchedUser} go={go} />
+				<Map id='map' fetchedUser={fetchedUser} go={go} />
+				<AddQuest id='addquest' fetchedUser={fetchedUser} go={go} />
 			</View>
 		</Epic>
 	);

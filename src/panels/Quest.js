@@ -4,13 +4,13 @@ import Panel from '@vkontakte/vkui/dist/components/Panel/Panel';
 import PanelHeader from '@vkontakte/vkui/dist/components/PanelHeader/PanelHeader';
 import Button from '@vkontakte/vkui/dist/components/Button/Button';
 import Group from '@vkontakte/vkui/dist/components/Group/Group';
-import Cell from '@vkontakte/vkui/dist/components/Cell/Cell';
 import Div from '@vkontakte/vkui/dist/components/Div/Div';
-import Avatar from '@vkontakte/vkui/dist/components/Avatar/Avatar';
-
+import { Link } from '@vkontakte/vkui';
 import { HeaderButton } from '@vkontakte/vkui';
 // import Icon24Place from '@vkontakte/icons/dist/24/place';
 import Icon24Add from '@vkontakte/icons/dist/24/add';
+import connect from '@vkontakte/vk-connect';
+import PanelSpinner from '@vkontakte/vkui/dist/components/PanelSpinner/PanelSpinner';
 
 import '../globals.js';
 
@@ -21,6 +21,7 @@ class Quest extends React.Component {
 			id: PropTypes.string.isRequired,
 			go: PropTypes.func.isRequired,
 			fetchedUser: PropTypes.shape({
+				id: PropTypes.string,
 				photo_200: PropTypes.string,
 				first_name: PropTypes.string,
 				last_name: PropTypes.string,
@@ -29,35 +30,61 @@ class Quest extends React.Component {
 				}),
 			}),
 		};
+		this.state = {
+			quest: {},
+			loading: true,
+			user_list: [],
+		};
+	}
+
+	getQuest(quest_id) {
+		fetch("https://lastweb.ru/stubs/hk2/getQuest.php?id=" + quest_id)
+		.then(res => res.json())
+		.then(
+			(result) => {
+				console.log(result);
+				var user_list = this.state.user_list;
+				result.users.forEach((item) => {
+					user_list.push(<Div key={item.vk_id}><Link href={"/id" + item.vk_id}>{item.vk_id}</Link></Div>);
+				});
+				this.setState({quest: result, loading: false, user_list});		
+			},
+			(error) => {
+				console.log(error);
+			}
+		)
 	}
 
 	componentDidMount() {
-		console.log('quest mount ' + this.props.quest_id);
+		const quest_id = global._quest_id;
+		this.getQuest(quest_id);
 	}
 
 	render() {
 		const {id, go, fetchedUser} = this.props;
-		let quest_id = global._quest_id;
+		const { quest, loading, user_list } = this.state;
+		if (loading) {
+			return <Panel id={id}><PanelHeader>Загрузка</PanelHeader><PanelSpinner/></Panel>;
+		}
 		return (
 			<Panel id={id}>
 				<PanelHeader 
 					left={<HeaderButton key="addquest"><Icon24Add onClick={go} data-to="addquest"/></HeaderButton>}>
-					Quest
+					КВЕСТ
 				</PanelHeader>
-				{fetchedUser &&
-				<Group title="User Data Fetched with VK Connect">
-					<Cell
-						before={fetchedUser.photo_200 ? <Avatar src={fetchedUser.photo_200}/> : null}
-						description={fetchedUser.city && fetchedUser.city.title ? fetchedUser.city.title : ''}
-					>
-						{`${fetchedUser.first_name} ${fetchedUser.last_name}`}
-					</Cell>
-				</Group>}
-				<Group title="Navigation Example">
+				<Group title={quest.quest.title}>
+					<Div>
+						{quest.quest.description}
+					</Div>
 					<Div>
 						<Button size="xl" level="2" onClick={go} data-to="persik">
-							Show me the Persik, please{quest_id}
+							Начать выполнение
 						</Button>
+					</Div>
+				</Group>
+				<Group title="Участвуют">
+					<Div>
+						{user_list}
 					</Div>
 				</Group>
 			</Panel>

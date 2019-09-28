@@ -1,15 +1,14 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import Panel from '@vkontakte/vkui/dist/components/Panel/Panel';
 import PanelHeader from '@vkontakte/vkui/dist/components/PanelHeader/PanelHeader';
-import Button from '@vkontakte/vkui/dist/components/Button/Button';
+// import Button from '@vkontakte/vkui/dist/components/Button/Button';
 import Group from '@vkontakte/vkui/dist/components/Group/Group';
 import Cell from '@vkontakte/vkui/dist/components/Cell/Cell';
 import Div from '@vkontakte/vkui/dist/components/Div/Div';
 import Avatar from '@vkontakte/vkui/dist/components/Avatar/Avatar';
 
-import { HeaderButton, Alert } from '@vkontakte/vkui';
+import { HeaderButton } from '@vkontakte/vkui';
 // import Icon24Place from '@vkontakte/icons/dist/24/place';
 import Icon24Add from '@vkontakte/icons/dist/24/add';
 // import Axios from 'axios';
@@ -26,6 +25,7 @@ class Home extends React.Component {
 			go: PropTypes.func.isRequired,
 			goQuest: PropTypes.func.isRequired,
 			fetchedUser: PropTypes.shape({
+				id: PropTypes.string,
 				photo_200: PropTypes.string,
 				first_name: PropTypes.string,
 				last_name: PropTypes.string,
