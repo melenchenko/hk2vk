@@ -11,6 +11,9 @@ import Avatar from '@vkontakte/vkui/dist/components/Avatar/Avatar';
 import { HeaderButton, Alert } from '@vkontakte/vkui';
 import Icon24Place from '@vkontakte/icons/dist/24/place';
 import Icon24Add from '@vkontakte/icons/dist/24/add';
+import Axios from 'axios';
+
+const axios = require('axios');
 
 class Home extends React.Component {
 	constructor(props) {
@@ -30,26 +33,38 @@ class Home extends React.Component {
 	}
 
 	componentDidMount() {
-		fetch("https://lastweb.ru/stubs/hk2/getCatalog.php")
-		.then(res => res.json())
-		.then(
-			(result) => {
-				console.log(result)
-				// this.setState({
-				// 	isLoaded: true,
-				// 	items: result.items
-				// });
-			},
-			// Примечание: важно обрабатывать ошибки именно здесь, а не в блоке catch(),
-			// чтобы не перехватывать исключения из ошибок в самих компонентах.
-			(error) => {
-				console.log(error)
-				// this.setState({
-				// 	isLoaded: true,
-				// 	error
-				// });
-			}
-      )
+		// fetch("https://lastweb.ru/stubs/hk2/getCatalog.php")
+		// .then(res => res.json())
+		// .then(
+		// 	(result) => {
+		// 		console.log(result)
+		// 		// this.setState({
+		// 		// 	isLoaded: true,
+		// 		// 	items: result.items
+		// 		// });
+		// 	},
+		// 	// Примечание: важно обрабатывать ошибки именно здесь, а не в блоке catch(),
+		// 	// чтобы не перехватывать исключения из ошибок в самих компонентах.
+		// 	(error) => {
+		// 		console.log(error)
+		// 		// this.setState({
+		// 		// 	isLoaded: true,
+		// 		// 	error
+		// 		// });
+		// 	}
+		// )
+		// $.get( "https://lastweb.ru/stubs/hk2/getCatalog.php", function( data ) {
+		// 	console.log(data);
+		// }, "json" );
+		axios.get('http://lastweb.ru/stubs/hk2/getCatalog.php')
+		.then(function (response) {
+			// handle success
+			console.log(response);
+		})
+		.catch(function (error) {
+			// handle error
+			console.log(error);
+		});
 	}
 
 	render() {
