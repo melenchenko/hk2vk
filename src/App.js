@@ -72,7 +72,7 @@ const App = () => {
 				<Home id='home' fetchedUser={fetchedUser} go={go} goQuest={goQuest} />
 				<Persik id='persik' fetchedUser={fetchedUser} go={go} />
 				<Quest id='quest' fetchedUser={fetchedUser} go={go} />
-				<MyQuests id='myquests' fetchedUser={fetchedUser} go={go} />
+				<MyQuests id='myquests' fetchedUser={fetchedUser} go={go} goQuest={goQuest} />
 				<Status id='status' fetchedUser={fetchedUser} go={go} />
 				<Profile id='profile' fetchedUser={fetchedUser} go={go} />
 				<Users id='users' fetchedUser={fetchedUser} go={go} />
