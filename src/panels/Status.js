@@ -30,7 +30,7 @@ class Status extends React.Component {
 	}
 
 	componentDidMount() {
-		console.log('home mount');
+		console.log('status mount');
 	}
 
 	render() {

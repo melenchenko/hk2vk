@@ -30,7 +30,7 @@ class Users extends React.Component {
 	}
 
 	componentDidMount() {
-		console.log('home mount');
+		console.log('users mount');
 	}
 
 	render() {

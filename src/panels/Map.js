@@ -30,7 +30,7 @@ class Map extends React.Component {
 	}
 
 	componentDidMount() {
-		console.log('home mount');
+		console.log('map mount');
 	}
 
 	render() {

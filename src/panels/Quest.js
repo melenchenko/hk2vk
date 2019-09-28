@@ -30,7 +30,7 @@ class Quest extends React.Component {
 	}
 
 	componentDidMount() {
-		console.log('home mount');
+		console.log('quest mount');
 	}
 
 	render() {
