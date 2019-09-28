@@ -11,6 +11,7 @@ import Avatar from '@vkontakte/vkui/dist/components/Avatar/Avatar';
 import { HeaderButton } from '@vkontakte/vkui';
 import Icon24Place from '@vkontakte/icons/dist/24/place';
 import Icon24Add from '@vkontakte/icons/dist/24/add';
+import { FormLayout, Select, Input, Checkbox } from '@vkontakte/vkui';
 
 class Profile extends React.Component {
 	constructor(props) {
@@ -28,24 +29,74 @@ class Profile extends React.Component {
 				}),
 			}),
 		};
+		this.state = {
+			profile: {},
+			cloth: this.state.profile.cloth_size,
+			gender: this.state.profile.gender,
+			english: this.state.profile.english
+		};
+		this.handleCloth = this.handleCloth.bind(this);
+		this.handleGender = this.handleGender.bind(this);
+		this.handleEnglish = this.handleEnglish.bind(this);
+	}
+
+	getProfile() {
+		fetch("https://lastweb.ru/stubs/hk2/getProfile.php?vk_id=" + this.props.fetchedUser.id)
+		.then(res => res.json())
+		.then(
+			(result) => {
+				console.log(result)
+				this.setState({profile: result});
+			},
+			(error) => {
+				console.log(error);
+			}
+		);
+	}
+
+	saveProfile() {
+		fetch("https://lastweb.ru/stubs/hk2/getProfile.php?vk_id=" + this.props.fetchedUser.id + "&gender=" + this.state.gender + "&speak_english=" + this.state.english + "&cloth_size=" + this.state.cloth)
+		.then(res => res.json())
+		.then(
+			(result) => {
+				console.log(result)
+				this.setState({profile: result});
+			},
+			(error) => {
+				console.log(error);
+			}
+		);
 	}
 
 	componentDidMount() {
-		console.log('profile mount');
+		getProfile();
+	}
+
+	handleCloth(event) {
+		this.setState({cloth: event.target.value});
+	}
+
+	handleGender(event) {
+		this.setState({gender: event.target.value});
+	}
+
+	handleEnglish(event) {
+		this.setState({english: event.target.value});
 	}
 
 	render() {
 		let id = this.props.id;
 		let go = this.props.go;
 		let fetchedUser = this.props.fetchedUser;
+		const { profile, cloth, english, gender } = this.state;
 		return (
 			<Panel id={id}>
 				<PanelHeader 
 					left={<HeaderButton key="addquest"><Icon24Add onClick={go} data-to="addquest"/></HeaderButton>}>
-					Profile
+					Профиль
 				</PanelHeader>
 				{fetchedUser &&
-				<Group title={"User Data Fetched with VK Connect"}>
+				<Group title="User Data Fetched with VK Connect">
 					<Cell
 						before={fetchedUser.photo_200 ? <Avatar src={fetchedUser.photo_200}/> : null}
 						description={fetchedUser.city && fetchedUser.city.title ? fetchedUser.city.title : ''}
@@ -53,12 +104,16 @@ class Profile extends React.Component {
 						{`${fetchedUser.first_name} ${fetchedUser.last_name}`}
 					</Cell>
 				</Group>}
-				<Group title="Navigation Example">
-					<Div>
-						<Button size="xl" level="2" onClick={go} data-to="persik">
-							Show me the Persik, please
-						</Button>
-					</Div>
+				<Group title="Мои настройки">
+					<FormLayout>
+						<Select top="Пол" placeholder="Выберите пол" value={gender || profile.gender} onChange={this.handleGender}>
+							<option value="1">Мужской</option>
+							<option value="0">Женский</option>
+						</Select>
+						<Input top="Размер одежды" value={cloth || profile.cloth_size} onChange={this.handleCloth} />		
+						<Checkbox value={english || profile.speak_english} onChange={this.handleEnglish}>Знание английского языка</Checkbox>
+						<Button size="xl" onClick={() => this.saveProfile()}>Сохранить</Button>
+					</FormLayout>
 				</Group>
 			</Panel>
 		);

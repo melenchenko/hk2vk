@@ -81,15 +81,6 @@ class Home extends React.Component {
 				left={<HeaderButton key="addquest"><Icon24Add onClick={go} data-to="addquest"/></HeaderButton>}>
 				ВСЕ КВЕСТЫ
 			</PanelHeader>
-			{fetchedUser &&
-			<Group title="User Data Fetched with VK Connect">
-				<Cell
-					before={fetchedUser.photo_200 ? <Avatar src={fetchedUser.photo_200}/> : null}
-					description={fetchedUser.city && fetchedUser.city.title ? fetchedUser.city.title : ''}
-				>
-					{`${fetchedUser.first_name} ${fetchedUser.last_name}`}
-				</Cell>
-			</Group>}
 			<Group title="Доступны к выполнению">
 				<Div>{quest_list}</Div>
 			</Group>
