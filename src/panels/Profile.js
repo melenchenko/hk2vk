@@ -86,7 +86,16 @@ class Profile extends React.Component {
 		let id = this.props.id;
 		let go = this.props.go;
 		let fetchedUser = this.props.fetchedUser;
-		const { profile, cloth, english, gender } = this.state;
+		let { profile, cloth, english, gender } = this.state;
+		if (cloth === undefined) {
+			cloth = profile.cloth_size;
+		}
+		if (english === undefined) {
+			cloth = profile.speak_english;
+		}
+		if (gender === undefined) {
+			gender = profile.gender;
+		}
 		return (
 			<Panel id={id}>
 				<PanelHeader 
@@ -104,12 +113,12 @@ class Profile extends React.Component {
 				</Group>}
 				<Group title="Мои настройки">
 					<FormLayout>
-						<Select data-name="gender" top="Пол" placeholder="Выберите пол" value={gender || profile.gender} onChange={this.handleGender}>
+						<Select data-name="gender" top="Пол" placeholder="Выберите пол" value={gender} onChange={this.handleGender}>
 							<option value="1">Мужской</option>
 							<option value="0">Женский</option>
 						</Select>
-						<Input data-name="cloth" top="Размер одежды" value={cloth || profile.cloth_size} onChange={this.handleCloth} />		
-						<Checkbox data-name="english" value={english || profile.speak_english} onChange={this.handleEnglish}>Знание английского языка</Checkbox>
+						<Input data-name="cloth" top="Размер одежды" value={cloth} onChange={this.handleCloth} />		
+						<Checkbox data-name="english" value={english} onChange={this.handleEnglish}>Знание английского языка</Checkbox>
 						<Button size="xl" onClick={() => this.saveProfile()}>Сохранить</Button>
 					</FormLayout>
 				</Group>
