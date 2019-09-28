@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {setState} from 'react';
 import PropTypes from 'prop-types';
 import Panel from '@vkontakte/vkui/dist/components/Panel/Panel';
 import PanelHeader from '@vkontakte/vkui/dist/components/PanelHeader/PanelHeader';
@@ -11,11 +11,12 @@ import Avatar from '@vkontakte/vkui/dist/components/Avatar/Avatar';
 import { HeaderButton, Alert } from '@vkontakte/vkui';
 import Icon24Place from '@vkontakte/icons/dist/24/place';
 import Icon24Add from '@vkontakte/icons/dist/24/add';
-import Axios from 'axios';
+// import Axios from 'axios';
 
-const axios = require('axios');
+// const axios = require('axios');
 
 class Home extends React.Component {
+	
 	constructor(props) {
 		super(props);
 		this.propTypes = {
@@ -32,29 +33,48 @@ class Home extends React.Component {
 		};
 		this.state = {
 			quests: []
-		}
+		};
+	}
+
+	getCatalog() {
+		// axios.get('https://lastweb.ru/stubs/hk2/getCatalog.php')
+		// .then(function (response) {
+		// 	// handle success
+		// 	console.log(response.data);
+		// 	this.setState({quests: response.data});
+		// })
+		// .catch(function (error) {
+		// 	// handle error
+		// 	console.log(error);
+		// });
+		fetch("https://lastweb.ru/stubs/hk2/getCatalog.php")
+		.then(res => res.json())
+		.then(
+			(result) => {
+				console.log(result)
+				this.setState({quests: result});
+			},
+			// Примечание: важно обрабатывать ошибки именно здесь, а не в блоке catch(),
+			// чтобы не перехватывать исключения из ошибок в самих компонентах.
+			(error) => {
+				console.log(error);
+			}
+		)
 	}
 
 	componentDidMount() {
-		axios.get('https://lastweb.ru/stubs/hk2/getCatalog.php')
-		.then(function (response) {
-			// handle success
-			console.log(response);
-			this.setState({
-				quests: response
-			});
-		})
-		.catch(function (error) {
-			// handle error
-			console.log(error);
-		});
+		this.getCatalog();
 	}
 
 	render() {
 		let id = this.props.id;
 		let go = this.props.go;
 		let fetchedUser = this.props.fetchedUser;
-		const {quests} = this.state;
+		const { quests } = this.state;
+		let quest_list = [];
+		quests.forEach((item) => {
+			quest_list.push(<Div>{item.title}</Div>);
+		});
 		return (
 			<Panel id={id}>
 				<PanelHeader 
@@ -77,6 +97,7 @@ class Home extends React.Component {
 						</Button>
 					</Div>
 				</Group>
+				<Group>{quest_list}</Group>
 			</Panel>
 		);
 	}
