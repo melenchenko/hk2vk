@@ -41,7 +41,7 @@ class Home extends React.Component {
 			// handle success
 			console.log(response);
 			this.setState({
-				quests: result
+				quests: response
 			});
 		})
 		.catch(function (error) {
