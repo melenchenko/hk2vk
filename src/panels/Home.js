@@ -8,7 +8,7 @@ import Cell from '@vkontakte/vkui/dist/components/Cell/Cell';
 import Div from '@vkontakte/vkui/dist/components/Div/Div';
 import Avatar from '@vkontakte/vkui/dist/components/Avatar/Avatar';
 
-import { HeaderButton } from '@vkontakte/vkui';
+import { HeaderButton, Alert } from '@vkontakte/vkui';
 import Icon24Place from '@vkontakte/icons/dist/24/place';
 import Icon24Add from '@vkontakte/icons/dist/24/add';
 
@@ -27,7 +27,7 @@ const Home = ({ id, go, fetchedUser }) => (
 				{`${fetchedUser.first_name} ${fetchedUser.last_name}`}
 			</Cell>
 		</Group>}
-
+		<Alert>test</Alert>
 		<Group title="Navigation Example">
 			<Div>
 				<Button size="xl" level="2" onClick={go} data-to="persik">
@@ -37,6 +37,10 @@ const Home = ({ id, go, fetchedUser }) => (
 		</Group>
 	</Panel>
 );
+
+Home.componentDidMount = () => {
+	console.log('home mount');
+};
 
 Home.propTypes = {
 	id: PropTypes.string.isRequired,
