@@ -5,11 +5,9 @@ import PanelHeader from '@vkontakte/vkui/dist/components/PanelHeader/PanelHeader
 import Button from '@vkontakte/vkui/dist/components/Button/Button';
 import Group from '@vkontakte/vkui/dist/components/Group/Group';
 import Cell from '@vkontakte/vkui/dist/components/Cell/Cell';
-import Div from '@vkontakte/vkui/dist/components/Div/Div';
 import Avatar from '@vkontakte/vkui/dist/components/Avatar/Avatar';
 
 import { HeaderButton } from '@vkontakte/vkui';
-import Icon24Place from '@vkontakte/icons/dist/24/place';
 import Icon24Add from '@vkontakte/icons/dist/24/add';
 import { FormLayout, Select, Input, Checkbox } from '@vkontakte/vkui';
 
@@ -31,9 +29,9 @@ class Profile extends React.Component {
 		};
 		this.state = {
 			profile: {},
-			cloth: this.state.profile.cloth_size,
-			gender: this.state.profile.gender,
-			english: this.state.profile.english
+			cloth: undefined,
+			gender: undefined,
+			english: undefined
 		};
 		this.handleCloth = this.handleCloth.bind(this);
 		this.handleGender = this.handleGender.bind(this);
@@ -69,7 +67,7 @@ class Profile extends React.Component {
 	}
 
 	componentDidMount() {
-		getProfile();
+		this.getProfile();
 	}
 
 	handleCloth(event) {
@@ -106,12 +104,12 @@ class Profile extends React.Component {
 				</Group>}
 				<Group title="Мои настройки">
 					<FormLayout>
-						<Select top="Пол" placeholder="Выберите пол" value={gender || profile.gender} onChange={this.handleGender}>
+						<Select data-name="gender" top="Пол" placeholder="Выберите пол" value={gender || profile.gender} onChange={this.handleGender}>
 							<option value="1">Мужской</option>
 							<option value="0">Женский</option>
 						</Select>
-						<Input top="Размер одежды" value={cloth || profile.cloth_size} onChange={this.handleCloth} />		
-						<Checkbox value={english || profile.speak_english} onChange={this.handleEnglish}>Знание английского языка</Checkbox>
+						<Input data-name="cloth" top="Размер одежды" value={cloth || profile.cloth_size} onChange={this.handleCloth} />		
+						<Checkbox data-name="english" value={english || profile.speak_english} onChange={this.handleEnglish}>Знание английского языка</Checkbox>
 						<Button size="xl" onClick={() => this.saveProfile()}>Сохранить</Button>
 					</FormLayout>
 				</Group>
