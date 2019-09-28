@@ -30,7 +30,26 @@ class Home extends React.Component {
 	}
 
 	componentDidMount() {
-		console.log('home mount');
+		fetch("https://lastweb.ru/stubs/hk2/getCatalog.php")
+		.then(res => res.json())
+		.then(
+			(result) => {
+				console.log(result)
+				// this.setState({
+				// 	isLoaded: true,
+				// 	items: result.items
+				// });
+			},
+			// Примечание: важно обрабатывать ошибки именно здесь, а не в блоке catch(),
+			// чтобы не перехватывать исключения из ошибок в самих компонентах.
+			(error) => {
+				console.log(error)
+				// this.setState({
+				// 	isLoaded: true,
+				// 	error
+				// });
+			}
+      )
 	}
 
 	render() {
