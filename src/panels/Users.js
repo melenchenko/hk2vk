@@ -57,7 +57,7 @@ class Users extends React.Component {
 		const { users } = this.state;
 		let user_list = [];
 		users.forEach((item) => {
-			user_list.push(<Div key={item.place}><Link href={"/id" + item.vk_id}>{item.place + ". " + item.vk_id + " Баланс: " + item.balance + ". Уровень: " + item.level}</Link></Div>);
+			user_list.push(<Div key={item.place}><Link href={"/id" + item.vk_id}>{item.place + ". " + item._vk.first_name + " " + item._vk.last_name + " Баланс: " + item.balance + ". Уровень: " + item.level}</Link></Div>);
 		});
 		return (
 			<Panel id={id}>

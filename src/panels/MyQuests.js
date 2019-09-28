@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Panel from '@vkontakte/vkui/dist/components/Panel/Panel';
 import PanelHeader from '@vkontakte/vkui/dist/components/PanelHeader/PanelHeader';
-import Button from '@vkontakte/vkui/dist/components/Button/Button';
 import Group from '@vkontakte/vkui/dist/components/Group/Group';
 import Div from '@vkontakte/vkui/dist/components/Div/Div';
 
@@ -46,7 +45,7 @@ class MyQuests extends React.Component {
 	}
 
 	componentDidMount() {
-		this.getQuests;
+		this.getQuests();
 	}
 
 	render() {
@@ -60,9 +59,9 @@ class MyQuests extends React.Component {
 			<Panel id={id}>
 				<PanelHeader 
 					left={<HeaderButton key="addquest"><Icon24Add onClick={go} data-to="addquest"/></HeaderButton>}>
-					My quests
+					Мои квесты
 				</PanelHeader>
-				<Group title="Navigation Example">
+				<Group title="Мои квесты">
 					<Div>{quest_list}</Div>
 				</Group>
 			</Panel>

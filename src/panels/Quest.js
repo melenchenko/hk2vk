@@ -44,7 +44,7 @@ class Quest extends React.Component {
 				console.log(result);
 				var user_list = this.state.user_list;
 				result.users.forEach((item) => {
-					user_list.push(<Div key={item.vk_id}><Link href={"/id" + item.vk_id}>{item.vk_id}</Link></Div>);
+					user_list.push(<Div key={item.vk_id}><Link href={"/id" + item.vk_id}>{item.vk_id} {item._vk.first_name} {item._vk.last_name}</Link></Div>);
 				});
 				this.setState({quest: result, loading: false, user_list});		
 			},
