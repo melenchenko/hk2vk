@@ -9,8 +9,10 @@ import Div from '@vkontakte/vkui/dist/components/Div/Div';
 import Avatar from '@vkontakte/vkui/dist/components/Avatar/Avatar';
 
 import { HeaderButton } from '@vkontakte/vkui';
-import Icon24Place from '@vkontakte/icons/dist/24/place';
+// import Icon24Place from '@vkontakte/icons/dist/24/place';
 import Icon24Add from '@vkontakte/icons/dist/24/add';
+
+import '../globals.js';
 
 class Quest extends React.Component {
 	constructor(props) {
@@ -30,13 +32,12 @@ class Quest extends React.Component {
 	}
 
 	componentDidMount() {
-		console.log('quest mount');
+		console.log('quest mount ' + this.props.quest_id);
 	}
 
 	render() {
-		let id = this.props.id;
-		let go = this.props.go;
-		let fetchedUser = this.props.fetchedUser;
+		const {id, go, fetchedUser} = this.props;
+		let quest_id = global._quest_id;
 		return (
 			<Panel id={id}>
 				<PanelHeader 
@@ -55,7 +56,7 @@ class Quest extends React.Component {
 				<Group title="Navigation Example">
 					<Div>
 						<Button size="xl" level="2" onClick={go} data-to="persik">
-							Show me the Persik, please
+							Show me the Persik, please{quest_id}
 						</Button>
 					</Div>
 				</Group>

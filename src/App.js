@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, setState, useEffect } from 'react';
 import connect from '@vkontakte/vk-connect';
 import View from '@vkontakte/vkui/dist/components/View/View';
 import ScreenSpinner from '@vkontakte/vkui/dist/components/ScreenSpinner/ScreenSpinner';
@@ -14,6 +14,8 @@ import Users from './panels/Users';
 import Map from './panels/Map';
 import AddQuest from './panels/AddQuest';
 import { Epic, Tabbar, TabbarItem } from '@vkontakte/vkui';
+
+import './globals.js';
 
 const App = () => {
 	const [activePanel, setActivePanel] = useState('home');
@@ -41,31 +43,33 @@ const App = () => {
 		setActivePanel(e.currentTarget.dataset.to);
 	};
 
+	const goQuest = e => {
+		global._quest_id = e.currentTarget.dataset.quest;
+		setActivePanel('quest');
+	};
+
 	return (
 		<Epic tabbar={
 			<Tabbar>
 				<TabbarItem onClick={go} data-to='home'>
-					CATALOG
-				</TabbarItem>
-				<TabbarItem onClick={go} data-to='quest'>
-					QUEST
+					Все квесты
 				</TabbarItem>
 				<TabbarItem onClick={go} data-to='myquests'>
-					MY QUESTS
+					Мои квесты
 				</TabbarItem>
 				<TabbarItem onClick={go} data-to='status'>
-					STATUS
+					Достижения
 				</TabbarItem>
 				<TabbarItem onClick={go} data-to='profile'>
-					PROFILE
+					Профиль
 				</TabbarItem>
 				<TabbarItem onClick={go} data-to='users'>
-					USERS
+					Рейтинг
 				</TabbarItem>
 			</Tabbar>
 		}>
 			<View activePanel={activePanel} popout={popout}>
-				<Home id='home' fetchedUser={fetchedUser} go={go} />
+				<Home id='home' fetchedUser={fetchedUser} go={go} goQuest={goQuest} />
 				<Persik id='persik' go={go} />
 				<Quest id='quest' go={go} />
 				<MyQuests id='myquests' go={go} />
