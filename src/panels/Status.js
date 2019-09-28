@@ -12,45 +12,56 @@ import { HeaderButton } from '@vkontakte/vkui';
 import Icon24Place from '@vkontakte/icons/dist/24/place';
 import Icon24Add from '@vkontakte/icons/dist/24/add';
 
-const Status = ({ id, go, fetchedUser }) => (
-	<Panel id={id}>
-		<PanelHeader 
-			left={<HeaderButton>
-				<Icon24Place onClick={go} data-to="map"/>
-			</HeaderButton>}>
-			Status
-		</PanelHeader>
-		{fetchedUser &&
-		<Group title="User Data Fetched with VK Connect">
-			<Cell
-				before={fetchedUser.photo_200 ? <Avatar src={fetchedUser.photo_200}/> : null}
-				description={fetchedUser.city && fetchedUser.city.title ? fetchedUser.city.title : ''}
-			>
-				{`${fetchedUser.first_name} ${fetchedUser.last_name}`}
-			</Cell>
-		</Group>}
+class Status extends React.Component {
+	constructor(props) {
+		super(props);
+		this.propTypes = {
+			id: PropTypes.string.isRequired,
+			go: PropTypes.func.isRequired,
+			fetchedUser: PropTypes.shape({
+				photo_200: PropTypes.string,
+				first_name: PropTypes.string,
+				last_name: PropTypes.string,
+				city: PropTypes.shape({
+					title: PropTypes.string,
+				}),
+			}),
+		};
+	}
 
-		<Group title="Navigation Example">
-			<Div>
-				<Button size="xl" level="2" onClick={go} data-to="persik">
-					Show me the Persik, please
-				</Button>
-			</Div>
-		</Group>
-	</Panel>
-);
+	componentDidMount() {
+		console.log('home mount');
+	}
 
-Status.propTypes = {
-	id: PropTypes.string.isRequired,
-	go: PropTypes.func.isRequired,
-	fetchedUser: PropTypes.shape({
-		photo_200: PropTypes.string,
-		first_name: PropTypes.string,
-		last_name: PropTypes.string,
-		city: PropTypes.shape({
-			title: PropTypes.string,
-		}),
-	}),
-};
+	render() {
+		let id = this.props.id;
+		let go = this.props.go;
+		let fetchedUser = this.props.fetchedUser;
+		return (
+			<Panel id={id}>
+				<PanelHeader 
+					left={<HeaderButton key="addquest"><Icon24Add onClick={go} data-to="addquest"/></HeaderButton>}>
+					Status
+				</PanelHeader>
+				{fetchedUser &&
+				<Group title="User Data Fetched with VK Connect">
+					<Cell
+						before={fetchedUser.photo_200 ? <Avatar src={fetchedUser.photo_200}/> : null}
+						description={fetchedUser.city && fetchedUser.city.title ? fetchedUser.city.title : ''}
+					>
+						{`${fetchedUser.first_name} ${fetchedUser.last_name}`}
+					</Cell>
+				</Group>}
+				<Group title="Navigation Example">
+					<Div>
+						<Button size="xl" level="2" onClick={go} data-to="persik">
+							Show me the Persik, please
+						</Button>
+					</Div>
+				</Group>
+			</Panel>
+		);
+	}
+}
 
 export default Status;
