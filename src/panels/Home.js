@@ -30,36 +30,19 @@ class Home extends React.Component {
 				}),
 			}),
 		};
+		this.state = {
+			quests: []
+		}
 	}
 
 	componentDidMount() {
-		// fetch("https://lastweb.ru/stubs/hk2/getCatalog.php")
-		// .then(res => res.json())
-		// .then(
-		// 	(result) => {
-		// 		console.log(result)
-		// 		// this.setState({
-		// 		// 	isLoaded: true,
-		// 		// 	items: result.items
-		// 		// });
-		// 	},
-		// 	// Примечание: важно обрабатывать ошибки именно здесь, а не в блоке catch(),
-		// 	// чтобы не перехватывать исключения из ошибок в самих компонентах.
-		// 	(error) => {
-		// 		console.log(error)
-		// 		// this.setState({
-		// 		// 	isLoaded: true,
-		// 		// 	error
-		// 		// });
-		// 	}
-		// )
-		// $.get( "https://lastweb.ru/stubs/hk2/getCatalog.php", function( data ) {
-		// 	console.log(data);
-		// }, "json" );
-		axios.get('http://lastweb.ru/stubs/hk2/getCatalog.php')
+		axios.get('https://lastweb.ru/stubs/hk2/getCatalog.php')
 		.then(function (response) {
 			// handle success
 			console.log(response);
+			this.setState({
+				quests: result
+			});
 		})
 		.catch(function (error) {
 			// handle error
@@ -71,6 +54,7 @@ class Home extends React.Component {
 		let id = this.props.id;
 		let go = this.props.go;
 		let fetchedUser = this.props.fetchedUser;
+		const {quests} = this.state;
 		return (
 			<Panel id={id}>
 				<PanelHeader 
