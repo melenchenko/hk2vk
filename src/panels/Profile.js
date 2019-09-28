@@ -87,14 +87,8 @@ class Profile extends React.Component {
 		let go = this.props.go;
 		let fetchedUser = this.props.fetchedUser;
 		let { profile, cloth, english, gender } = this.state;
-		if (cloth === undefined) {
-			this.setState({cloth: profile.cloth_size});
-		}
-		if (english === undefined) {
-			this.setState({english: profile.speak_english});
-		}
-		if (gender === undefined) {
-			this.setState({gender: profile.gender});
+		if (cloth === undefined || english === undefined || gender === undefined) {
+			this.setState({cloth: profile.cloth_size, english: profile.speak_english, gender: profile.gender});
 		}
 		return (
 			<Panel id={id}>
