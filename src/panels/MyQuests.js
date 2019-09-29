@@ -58,10 +58,10 @@ class MyQuests extends React.Component {
 		quests.forEach((item) => {
 			var record = <Div key={item.id} data-quest={item.id} onClick={goQuest}>{item.title}</Div>;
 			quest_list.push(record);
-			if (item.is_own === "1") {
+			if (item.is_own == 1) {
 				own_quest_list.push(record);
 			} else {
-				if (item.status === "2") {
+				if (item.status == 2) {
 					done_quest_list.push(record);
 				} else {
 					active_quest_list.push(record);

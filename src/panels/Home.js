@@ -50,7 +50,7 @@ class Home extends React.Component {
 		// 	// handle error
 		// 	console.log(error);
 		// });
-		fetch("https://lastweb.ru/stubs/hk2/getCatalog.php")
+		fetch("https://lastweb.ru/stubs/hk2/getCatalog.php?vk_id=" + this.props.fetchedUser.id)
 		.then(res => res.json())
 		.then(
 			(result) => {
