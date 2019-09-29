@@ -32,7 +32,7 @@ const App = () => {
 		// 	}
 		// });
 		async function fetchData() {
-			const user = await connect.sendPromise('VKWebAppGetUserInfo');
+			// const user = await connect.sendPromise('VKWebAppGetUserInfo');
 			// setUser(user);
 			setUser({id:455172878});
 			setPopout(null);
