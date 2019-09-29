@@ -86,7 +86,7 @@ class Quest extends React.Component {
 			var item = quest.roles[i];
 			var tmp = [];
 			item.users.forEach((it) => {
-				tmp.push(<Div><Link>{it.vk_id} {it.first_name} {it.last_name} {it.photo}</Link></Div>);
+				tmp.push(<Div><Link>{it.vk_id} {it._vk.first_name} {it._vk.last_name} {it._vk.photo}</Link></Div>);
 			});
 			role_list.push(<Group title={i}>
 				{quest.admin_mode == "1" && beseda}
@@ -95,8 +95,8 @@ class Quest extends React.Component {
 				<Div>{tmp}</Div>
 			</Group>);
 		}
-		const button_start = <Button size="xl" level="2" onClick={this.startQuest(quest.id)} data-to="persik">Завершить мероприятие</Button>;
-		const button_finish = <Button size="xl" level="2" onClick={this.finishQuest(quest.id)} data-to="persik">Начать выполнение</Button>;
+		const button_start = <Button size="xl" level="2" onClick={this.startQuest(quest.id)}>Завершить мероприятие</Button>;
+		const button_finish = <Button size="xl" level="2" onClick={this.finishQuest(quest.id)}>Начать выполнение</Button>;
 		if (quest.admin_mode == "1") {
 			var button = button_finish;
 		} else {
@@ -122,9 +122,6 @@ class Quest extends React.Component {
 				<Group title="Все участники">
 					{quest.admin_mode == "1" && beseda}
 					{quest.admin_mode == "1" && spam}
-					<Div>
-						{user_list}
-					</Div>
 				</Group>
 				{role_list}
 			</Panel>
