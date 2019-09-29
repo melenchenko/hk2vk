@@ -44,7 +44,7 @@ class Quest extends React.Component {
 				console.log(result);
 				var user_list = this.state.user_list;
 				result.users.forEach((item) => {
-					var button = <Button size="xl" level="2" onClick={go} data-to="persik">Исключить</Button>;
+					var button = <Button size="xl" level="2" onClick={this.props.go} data-to="persik">Исключить</Button>;
 					var record = <Div key={item.vk_id}>
 						<Link target="_blank" href={"https://vk.com/id" + item.vk_id}>
 							{item.vk_id} {item._vk.first_name} {item._vk.last_name}
@@ -72,7 +72,7 @@ class Quest extends React.Component {
 			return <Panel id={id}><PanelHeader>Загрузка</PanelHeader><PanelSpinner/></Panel>;
 		}
 		if (quest.admin_mode == "1") {
-			var button = <Button size="xl" level="2" onClick={go} data-to="persik">Мероприятие окончено</Button>;
+			var button = <Button size="xl" level="2" onClick={go} data-to="persik">Завершить мероприятие</Button>;
 		} else {
 			var button = <Button size="xl" level="2" onClick={go} data-to="persik">Начать выполнение</Button>;
 		}
