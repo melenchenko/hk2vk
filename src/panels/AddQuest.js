@@ -110,8 +110,8 @@ class AddQuest extends React.Component {
 
 	saveQuest(goQuest) {
 		var rblock = "&role1=" + this.state.role1 + "&role2=" + this.state.role2 + "&role3=" + this.state.role3; 
-		var rdblock = "&roledesc1=" + this.state.role1 + "&roledesc2=" + this.state.role2 + "&roledesc3=" + this.state.role3; 
-		var rcblock = "&rolecount1=" + this.state.role1 + "&rolecount2=" + this.state.role2 + "&rolecount3=" + this.state.role3; 
+		var rdblock = "&roledesc1=" + this.state.roledesc1 + "&roledesc2=" + this.state.roledesc2 + "&roledesc3=" + this.state.roledesc3; 
+		var rcblock = "&rolecount1=" + this.state.rolecount1 + "&rolecount2=" + this.state.rolecount2 + "&rolecount3=" + this.state.rolecount3; 
 		fetch("https://lastweb.ru/stubs/hk2/addQuest.php?vk_id=" + this.props.fetchedUser.id + "&title=" + this.state.title + "&description=" + this.state.description + "&reward=" + this.state.reward + rblock + rdblock + rcblock)
 		.then(res => res.json())
 		.then(
