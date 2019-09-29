@@ -5,11 +5,12 @@ import PanelHeader from '@vkontakte/vkui/dist/components/PanelHeader/PanelHeader
 import Button from '@vkontakte/vkui/dist/components/Button/Button';
 import Group from '@vkontakte/vkui/dist/components/Group/Group';
 import Div from '@vkontakte/vkui/dist/components/Div/Div';
-import { Link, Input } from '@vkontakte/vkui';
+import { Link, Input, Cell } from '@vkontakte/vkui';
 import { HeaderButton } from '@vkontakte/vkui';
 // import Icon24Place from '@vkontakte/icons/dist/24/place';
 import Icon24Add from '@vkontakte/icons/dist/24/add';
 import PanelSpinner from '@vkontakte/vkui/dist/components/PanelSpinner/PanelSpinner';
+import Avatar from '@vkontakte/vkui/dist/components/Avatar/Avatar';
 
 import '../globals.js';
 
@@ -101,24 +102,31 @@ class Quest extends React.Component {
 		if (loading) {
 			return <Panel id={id}><PanelHeader>Загрузка</PanelHeader><PanelSpinner/></Panel>;
 		}
-		var beseda = <Button size="xl" level="2" onClick={this.props.go} data-to="persik">Создать беседу VK</Button>;
-		var spam = <Div><Input placeholder="Текст сообщения"></Input><Button size="xl" level="2" onClick={this.props.go} data-to="persik">Разослать сообщение</Button></Div>;
+		var beseda = <Button /*size="xl"*/  level="2" onClick={this.props.go} data-to="persik">Создать беседу VK</Button>;
+		var spam = <Div><Input placeholder="Текст сообщения" ></Input><Button /*size="xl"*/ level="2" onClick={this.props.go} data-to="persik">Разослать сообщение</Button>  {beseda}</Div>;
 		let role_list = [];
 		for (var i in quest.roles) {
 			var item = quest.roles[i];
 			var tmp = [];
 			item.users.forEach((it) => {
-				tmp.push(<Div><Link>{it.vk_id} {it._vk.first_name} {it._vk.last_name} {it._vk.photo}</Link></Div>);
+				tmp.push(<Div><Link target="_blank_q" href={"https://vk.com/id" + it.vk_id}>
+					{/* {it.vk_id} {it._vk.first_name} {it._vk.last_name} {it._vk.photo}					 */}
+					<	Cell
+							before={it._vk.photo ? <Avatar src={it._vk.photo}/> : null}
+						>
+							{it._vk.first_name} {it._vk.last_name} 
+						</Cell>
+					</Link></Div>);
 			});
 			role_list.push(<Group title={i}>
-				{quest.admin_mode == 1 && beseda}
+				{/* {quest.admin_mode == 1 && beseda} */}
 				{quest.admin_mode == 1 && spam}
 				<Div>{item.desc} Нужно волонтеров: {item.need}</Div>
 				<Div>{tmp}</Div>
 			</Group>);
 		}
-		const button_finish = <Button size="xl" level="2" onClick={() => this.finishQuest()}>Завершить мероприятие</Button>;
-		const button_start = <Button size="xl" level="2" onClick={() => this.startQuest()}>Стать волонтером</Button>;
+		const button_finish = <Button /*size="xl"*/ level="2" onClick={() => this.finishQuest()}>Завершить мероприятие</Button>;
+		const button_start = <Button /*size="xl"*/ level="2" onClick={() => this.startQuest()}>Стать волонтером</Button>;
 		if (quest.admin_mode == 1) {
 			var button = button_finish;
 		} else {
@@ -136,14 +144,19 @@ class Quest extends React.Component {
 					</Div>
 				</Group>
 				<Group title="Организатор">
-					<Div>
-						{quest.quest.created_by.first_name} {quest.quest.created_by.last_name} {quest.quest.created_by.id} {quest.quest.created_by.photo}
+					<Div><Link target="_blank_o" href={"https://vk.com/id" + quest.quest.created_by.id}>
+						<Cell 
+							before={quest.quest.created_by.photo ? <Avatar src={quest.quest.created_by.photo}/> : null}
+						>
+							{quest.quest.created_by.first_name} {quest.quest.created_by.last_name} 
+						</Cell></Link>
 					</Div>
 					<Div>{button}</Div>
 				</Group>
-				<Group title="Все участники">
-					{quest.admin_mode == 1 && beseda}
+				<Group title="СВЯЗЬ СО ВСЕМИ УЧАСТНИКАМИ">
+				<cell>
 					{quest.admin_mode == 1 && spam}
+				</cell>
 				</Group>
 				{role_list}
 			</Panel>

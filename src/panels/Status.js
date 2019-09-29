@@ -12,6 +12,10 @@ import { HeaderButton } from '@vkontakte/vkui';
 import Icon24Place from '@vkontakte/icons/dist/24/place';
 import Icon24Add from '@vkontakte/icons/dist/24/add';
 
+import star from '../img/star.png';
+import balance from '../img/balance.png';
+import skill from '../img/skill.png';
+
 class Status extends React.Component {
 	constructor(props) {
 		super(props);
@@ -59,11 +63,11 @@ class Status extends React.Component {
 		return (
 			<Panel id={id}>
 				<PanelHeader 
-					left={<HeaderButton key="addquest"><Icon24Add onClick={go} data-to="addquest"/></HeaderButton>}>
-					Status
+					/*left={<HeaderButton key="addquest"><Icon24Add onClick={go} data-to="addquest"/></HeaderButton>}*/>
+					Достижения
 				</PanelHeader>
 				{fetchedUser &&
-				<Group title="User Data Fetched with VK Connect">
+				<Group title="Участник">
 					<Cell
 						before={fetchedUser.photo_200 ? <Avatar src={fetchedUser.photo_200}/> : null}
 						description={fetchedUser.city && fetchedUser.city.title ? fetchedUser.city.title : ''}
@@ -72,9 +76,14 @@ class Status extends React.Component {
 					</Cell>
 				</Group>}
 				<Group title="Мои показатели">
-					<Div>{this.props.fetchedUser.id}</Div>
-					<Div>{"Баланс: " + user.balance}</Div>
-					<Div>{"Уровень: " + user.level}</Div>
+					{/* <Div>{this.props.fetchedUser.id}</Div> */}
+					<Div><img className="balance" width="15px" height="15px" src={balance}/> {"Баланс: " + user.balance}</Div>
+					<Div><img className="star" width="15px" height="15px" src={star}/> {"Уровень: " + user.level}</Div>	
+				</Group>
+				<Group title="Мои навыки">
+					<Div><img className="skill" width="15px" height="15px" src={skill}/> {"приготовление пищи: 11"}</Div>
+					<Div><img className="skill" width="15px" height="15px" src={skill}/> {"юридические услуги: 2"}</Div>
+					<Div><img className="skill" width="15px" height="15px" src={skill}/> {"клининговые услуги: 5"}</Div>
 				</Group>
 			</Panel>
 		);

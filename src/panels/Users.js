@@ -12,6 +12,8 @@ import { HeaderButton } from '@vkontakte/vkui';
 import { Link } from '@vkontakte/vkui';
 import Icon24Add from '@vkontakte/icons/dist/24/add';
 
+import star from '../img/star.png';
+
 class Users extends React.Component {
 	constructor(props) {
 		super(props);
@@ -57,15 +59,24 @@ class Users extends React.Component {
 		const { users } = this.state;
 		let user_list = [];
 		users.forEach((item) => {
-			user_list.push(<Div key={item.place}><Link target="_blank" href={"https://vk.com/id" + item.vk_id}>{item.place + ". " + item._vk.first_name + " " + item._vk.last_name + " Баланс: " + item.balance + ". Уровень: " + item.level + " " + item._vk.photo }</Link></Div>);
+			user_list.push(<Div key={item.place}><Link target="_blank" href={"https://vk.com/id" + item.vk_id}>
+				{/* {item.place + ". " + item._vk.first_name + " " + item._vk.last_name + " Баланс: " + item.balance + ". Уровень: " + item.level + " " + item._vk.photo } */}
+				<Cell
+						before={item._vk.photo ? <Avatar src={item._vk.photo}/> : null}
+						// description={fetchedUser.city && fetchedUser.city.title ? fetchedUser.city.title : ''}
+					>
+						{item.place + "		" + `${item._vk.first_name} ${item._vk.last_name}` + "		"}
+						<img className="star" width="15px" height="15px" src={star}/>{"	" + item.level}
+				</Cell>
+			</Link></Div>);
 		});
 		return (
 			<Panel id={id}>
 				<PanelHeader 
-					left={<HeaderButton key="addquest"><Icon24Add onClick={go} data-to="addquest"/></HeaderButton>}>
+					/*left={<HeaderButton key="addquest"><Icon24Add onClick={go} data-to="addquest"/></HeaderButton>}*/>
 					Участники
 				</PanelHeader>
-				<Group title="Рейтинг участников">
+				<Group title="Рейтинг участников">					
 					<Div>{user_list}</Div>
 				</Group>
 			</Panel>

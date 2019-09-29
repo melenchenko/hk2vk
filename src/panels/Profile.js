@@ -7,7 +7,7 @@ import Group from '@vkontakte/vkui/dist/components/Group/Group';
 import Cell from '@vkontakte/vkui/dist/components/Cell/Cell';
 import Avatar from '@vkontakte/vkui/dist/components/Avatar/Avatar';
 
-import { HeaderButton } from '@vkontakte/vkui';
+import { HeaderButton, Div } from '@vkontakte/vkui';
 import Icon24Add from '@vkontakte/icons/dist/24/add';
 import { FormLayout, Select, Input, Checkbox } from '@vkontakte/vkui';
 
@@ -99,11 +99,11 @@ class Profile extends React.Component {
 		return (
 			<Panel id={id}>
 				<PanelHeader 
-					left={<HeaderButton key="addquest"><Icon24Add onClick={go} data-to="addquest"/></HeaderButton>}>
+					/*left={<HeaderButton key="addquest"><Icon24Add onClick={go} data-to="addquest"/></HeaderButton>}*/>
 					Профиль
 				</PanelHeader>
 				{fetchedUser &&
-				<Group title="User Data Fetched with VK Connect">
+				<Group title="Участник">
 					<Cell
 						before={fetchedUser.photo_200 ? <Avatar src={fetchedUser.photo_200}/> : null}
 						description={fetchedUser.city && fetchedUser.city.title ? fetchedUser.city.title : ''}
