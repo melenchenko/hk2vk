@@ -44,7 +44,13 @@ class Quest extends React.Component {
 				console.log(result);
 				var user_list = this.state.user_list;
 				result.users.forEach((item) => {
-					user_list.push(<Div key={item.vk_id}><Link target="_blank" href={"https://vk.com/id" + item.vk_id}>{item.vk_id} {item._vk.first_name} {item._vk.last_name}</Link></Div>);
+					var button = <Button size="xl" level="2" onClick={go} data-to="persik">Исключить</Button>;
+					var record = <Div key={item.vk_id}>
+						<Link target="_blank" href={"https://vk.com/id" + item.vk_id}>
+							{item.vk_id} {item._vk.first_name} {item._vk.last_name}
+						</Link>{result.admin_mode == "1" && button}
+					</Div>;
+					user_list.push(record);
 				});
 				this.setState({quest: result, loading: false, user_list});		
 			},

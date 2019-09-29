@@ -21,7 +21,7 @@ const Persik = props => (
 		>
 			Функция запланирована
 		</PanelHeader>
-		<Div>Функция скоро появится. Пока полюбуйтесь на котика.</Div>
+		<Div>Функция очень скоро появится. Пока полюбуйтесь на котика.</Div>
 		<img className="Persik" src={persik} alt="Persik The Cat"/>
 	</Panel>
 );
