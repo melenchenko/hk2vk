@@ -20,20 +20,21 @@ import './globals.js';
 const App = () => {
 	const [activePanel, setActivePanel] = useState('home');
 	const [fetchedUser, setUser] = useState(null);
-	const [popout, setPopout] = useState(<ScreenSpinner size='large' />);
-	// const [popout, setPopout] = useState(this);
+	//const [popout, setPopout] = useState(<ScreenSpinner size='large' />);
+	const [popout, setPopout] = useState(null);
 
 	useEffect(() => {
-		connect.subscribe(({ detail: { type, data }}) => {
-			if (type === 'VKWebAppUpdateConfig') {
-				const schemeAttribute = document.createAttribute('scheme');
-				schemeAttribute.value = data.scheme ? data.scheme : 'client_light';
-				document.body.attributes.setNamedItem(schemeAttribute);
-			}
-		});
+		// connect.subscribe(({ detail: { type, data }}) => {
+		// 	if (type === 'VKWebAppUpdateConfig') {
+		// 		const schemeAttribute = document.createAttribute('scheme');
+		// 		schemeAttribute.value = data.scheme ? data.scheme : 'client_light';
+		// 		document.body.attributes.setNamedItem(schemeAttribute);
+		// 	}
+		// });
 		async function fetchData() {
-			const user = await connect.sendPromise('VKWebAppGetUserInfo');
-			setUser(user);
+			//const user = await connect.sendPromise('VKWebAppGetUserInfo');
+			//setUser(user);
+			setUser({id:455172878});
 			setPopout(null);
 		}
 		fetchData();

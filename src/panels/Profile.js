@@ -79,7 +79,7 @@ class Profile extends React.Component {
 	}
 
 	handleEnglish(event) {
-		this.setState({english: event.target.value});
+		this.setState({english: event.target.checked ? '1' : '0'});
 	}
 
 	render() {
@@ -87,8 +87,14 @@ class Profile extends React.Component {
 		let go = this.props.go;
 		let fetchedUser = this.props.fetchedUser;
 		let { profile, cloth, english, gender } = this.state;
-		if (cloth === undefined || english === undefined || gender === undefined) {
-			this.setState({cloth: profile.cloth_size, english: profile.speak_english, gender: profile.gender});
+		if (cloth === undefined && profile.cloth_size !== undefined) {
+			this.setState({cloth: profile.cloth_size});
+		}
+		if (english === undefined && profile.speak_english !== undefined) {
+			this.setState({english: profile.speak_english});
+		}
+		if (gender === undefined && profile.gender !== undefined) {
+			this.setState({gender: profile.gender});
 		}
 		return (
 			<Panel id={id}>
@@ -107,12 +113,12 @@ class Profile extends React.Component {
 				</Group>}
 				<Group title="Мои настройки">
 					<FormLayout>
-						<Select data-name="gender" top="Пол" placeholder="Выберите пол" value={gender} onChange={this.handleGender}>
-							<option value="1">Мужской</option>
-							<option value="0">Женский</option>
+						<Select data-name="gender" top="Пол" placeholder={(gender == "1" ? "Мужской" : (gender == "0" ? "Женский" : "")) + " (выберите значение)"} value={gender} onChange={this.handleGender}>
+							<option value="1" >Мужской</option>
+							<option value="0" >Женский</option>
 						</Select>
 						<Input data-name="cloth" top="Размер одежды" value={cloth} onChange={this.handleCloth} />		
-						<Checkbox data-name="english" value={english} onChange={this.handleEnglish}>Знание английского языка</Checkbox>
+						<Checkbox checked={this.state.english == '1'} data-name="english" value={this.state.english} onChange={this.handleEnglish}>Знание английского языка</Checkbox>
 						<Button size="xl" onClick={() => this.saveProfile()}>Сохранить</Button>
 					</FormLayout>
 				</Group>
