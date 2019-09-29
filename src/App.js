@@ -20,28 +20,24 @@ import './globals.js';
 const App = () => {
 	const [activePanel, setActivePanel] = useState('home');
 	const [fetchedUser, setUser] = useState(null);
-	const [popout, setPopout] = useState(<ScreenSpinner size='large' />);
-	// const [popout, setPopout] = useState(null);
+	// const [popout, setPopout] = useState(<ScreenSpinner size='large' />);
+	const [popout, setPopout] = useState(null);
 
 	useEffect(() => {
-		connect.subscribe(({ detail: { type, data }}) => {
-			if (type === 'VKWebAppUpdateConfig') {
-				const schemeAttribute = document.createAttribute('scheme');
-				schemeAttribute.value = data.scheme ? data.scheme : 'client_light';
-				document.body.attributes.setNamedItem(schemeAttribute);
-			}
-			// if (type === 'VKWebAppAccessTokenReceived ') {
-			// 	fetch("https://lastweb.ru/stubs/hk2/saveToken.php?token=" + data.access_token + "&vk_id=" + this.state.fetchedUser.id)
-			// }
-		});
+		// connect.subscribe(({ detail: { type, data }}) => {
+		// 	if (type === 'VKWebAppUpdateConfig') {
+		// 		const schemeAttribute = document.createAttribute('scheme');
+		// 		schemeAttribute.value = data.scheme ? data.scheme : 'client_light';
+		// 		document.body.attributes.setNamedItem(schemeAttribute);
+		// 	}
+		// });
 		async function fetchData() {
 			const user = await connect.sendPromise('VKWebAppGetUserInfo');
-			setUser(user);
-			// setUser({id:455172878});
+			// setUser(user);
+			setUser({id:455172878});
 			setPopout(null);
 		}
 		fetchData();
-		// connect.send("VKWebAppGetAuthToken", {"app_id": 7150767, "scope": "friends,status,message"});
 	}, []);
 
 	const go = e => {
