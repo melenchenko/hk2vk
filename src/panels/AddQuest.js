@@ -117,7 +117,15 @@ class AddQuest extends React.Component {
 		.then(
 			(result) => {
 				console.log(result)
-				this.setState({title: '', description: '', reward: '', msg: 'Квест создан'});
+				this.setState({title: '', description: '', reward: '', msg: 'Квест создан', role1: '',
+				roledesc1: '',
+				rolecount1: '',
+				role2: '',
+				roledesc2: '',
+				rolecount2: '',
+				role3: '',
+				roledesc3: '',
+				rolecount3: '',});
 			},
 			(error) => {
 				console.log(error);
