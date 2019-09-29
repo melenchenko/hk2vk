@@ -5,7 +5,7 @@ import PanelHeader from '@vkontakte/vkui/dist/components/PanelHeader/PanelHeader
 import Button from '@vkontakte/vkui/dist/components/Button/Button';
 import Group from '@vkontakte/vkui/dist/components/Group/Group';
 import Div from '@vkontakte/vkui/dist/components/Div/Div';
-import { Link } from '@vkontakte/vkui';
+import { Link, Input } from '@vkontakte/vkui';
 import { HeaderButton } from '@vkontakte/vkui';
 // import Icon24Place from '@vkontakte/icons/dist/24/place';
 import Icon24Add from '@vkontakte/icons/dist/24/add';
@@ -65,18 +65,43 @@ class Quest extends React.Component {
 		this.getQuest(quest_id);
 	}
 
+	startQuest(quest_id) {
+
+	}
+
+	finishQuest(quest_id) {
+
+	}
+
 	render() {
 		const {id, go, fetchedUser} = this.props;
 		const { quest, loading, user_list } = this.state;
 		if (loading) {
 			return <Panel id={id}><PanelHeader>Загрузка</PanelHeader><PanelSpinner/></Panel>;
 		}
-		if (quest.admin_mode == "1") {
-			var button = <Button size="xl" level="2" onClick={go} data-to="persik">Завершить мероприятие</Button>;
-		} else {
-			var button = <Button size="xl" level="2" onClick={go} data-to="persik">Начать выполнение</Button>;
+		var beseda = <Button size="xl" level="2" onClick={this.props.go} data-to="persik">Создать беседу VK</Button>;
+		var spam = <Div><Input placeholder="Текст сообщения"></Input><Button size="xl" level="2" onClick={this.props.go} data-to="persik">Разослать сообщение</Button></Div>;
+		let role_list = [];
+		for (var i in quest.roles) {
+			var item = quest.roles[i];
+			var tmp = [];
+			item.users.forEach((it) => {
+				tmp.push(<Div><Link>{it.vk_id} {it.first_name} {it.last_name} {it.photo}</Link></Div>);
+			});
+			role_list.push(<Group title={i}>
+				{quest.admin_mode == "1" && beseda}
+				{quest.admin_mode == "1" && spam}
+				<Div>{item.desc} Нужно волонтеров: {item.need}</Div>
+				<Div>{tmp}</Div>
+			</Group>);
 		}
-		
+		const button_start = <Button size="xl" level="2" onClick={this.startQuest(quest.id)} data-to="persik">Завершить мероприятие</Button>;
+		const button_finish = <Button size="xl" level="2" onClick={this.finishQuest(quest.id)} data-to="persik">Начать выполнение</Button>;
+		if (quest.admin_mode == "1") {
+			var button = button_finish;
+		} else {
+			var button = button_start;
+		}
 		return (
 			<Panel id={id}>
 				<PanelHeader 
@@ -87,13 +112,21 @@ class Quest extends React.Component {
 					<Div>
 						{quest.quest.description}
 					</Div>
+				</Group>
+				<Group title="Организатор">
+					<Div>
+						{quest.quest.created_by.first_name} {quest.quest.created_by.last_name} {quest.quest.created_by.id} {quest.quest.created_by.photo}
+					</Div>
 					<Div>{button}</Div>
 				</Group>
-				<Group title="Участвуют">
+				<Group title="Все участники">
+					{quest.admin_mode == "1" && beseda}
+					{quest.admin_mode == "1" && spam}
 					<Div>
 						{user_list}
 					</Div>
 				</Group>
+				{role_list}
 			</Panel>
 		);
 	}
