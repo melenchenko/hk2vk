@@ -139,6 +139,7 @@ class Quest extends React.Component {
 					КВЕСТ
 				</PanelHeader>
 				<Group title={quest.quest.title}>
+					<Div>Награда: {quest.quest.reward}</Div>
 					<Div>
 						{quest.quest.description}
 					</Div>
