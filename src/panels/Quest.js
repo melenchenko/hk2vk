@@ -48,7 +48,7 @@ class Quest extends React.Component {
 					var record = <Div key={item.vk_id}>
 						<Link target="_blank" href={"https://vk.com/id" + item.vk_id}>
 							{item.vk_id} {item._vk.first_name} {item._vk.last_name}
-						</Link>{result.admin_mode == "1" && button}
+						</Link>{result.admin_mode == 1 && button}
 					</Div>;
 					user_list.push(record);
 				});
@@ -65,17 +65,39 @@ class Quest extends React.Component {
 		this.getQuest(quest_id);
 	}
 
-	startQuest(quest_id) {
-
+	startQuest() {
+		const quest_id = global._quest_id;
+		fetch("https://lastweb.ru/stubs/hk2/methods.php?method=startQuest&quest_id=" + quest_id + "&vk_id=" + this.props.fetchedUser.id)
+		.then(res => res.json())
+		.then(
+			(result) => {
+				console.log(result);
+			},
+			(error) => {
+				console.log(error);
+			}
+		)
 	}
 
-	finishQuest(quest_id) {
-
+	finishQuest() {
+		const quest_id = global._quest_id;
+		fetch("https://lastweb.ru/stubs/hk2/methods.php?method=finishQuest&quest_id=" + quest_id + "&vk_id=" + this.props.fetchedUser.id)
+		.then(res => res.json())
+		.then(
+			(result) => {
+				console.log(result);
+			},
+			(error) => {
+				console.log(error);
+			}
+		)
 	}
 
 	render() {
 		const {id, go, fetchedUser} = this.props;
 		const { quest, loading, user_list } = this.state;
+		console.log('quest=');
+		console.log(quest);
 		if (loading) {
 			return <Panel id={id}><PanelHeader>Загрузка</PanelHeader><PanelSpinner/></Panel>;
 		}
@@ -89,18 +111,18 @@ class Quest extends React.Component {
 				tmp.push(<Div><Link>{it.vk_id} {it._vk.first_name} {it._vk.last_name} {it._vk.photo}</Link></Div>);
 			});
 			role_list.push(<Group title={i}>
-				{quest.admin_mode == "1" && beseda}
-				{quest.admin_mode == "1" && spam}
+				{quest.admin_mode == 1 && beseda}
+				{quest.admin_mode == 1 && spam}
 				<Div>{item.desc} Нужно волонтеров: {item.need}</Div>
 				<Div>{tmp}</Div>
 			</Group>);
 		}
-		const button_start = <Button size="xl" level="2" onClick={this.startQuest(quest.id)}>Завершить мероприятие</Button>;
-		const button_finish = <Button size="xl" level="2" onClick={this.finishQuest(quest.id)}>Начать выполнение</Button>;
-		if (quest.admin_mode == "1") {
+		const button_finish = <Button size="xl" level="2" onClick={() => this.finishQuest()}>Завершить мероприятие</Button>;
+		const button_start = <Button size="xl" level="2" onClick={() => this.startQuest()}>Стать волонтером</Button>;
+		if (quest.admin_mode == 1) {
 			var button = button_finish;
 		} else {
-			var button = button_start;
+			var button = quest.member_mode == 0 ? button_start : {};
 		}
 		return (
 			<Panel id={id}>
@@ -120,8 +142,8 @@ class Quest extends React.Component {
 					<Div>{button}</Div>
 				</Group>
 				<Group title="Все участники">
-					{quest.admin_mode == "1" && beseda}
-					{quest.admin_mode == "1" && spam}
+					{quest.admin_mode == 1 && beseda}
+					{quest.admin_mode == 1 && spam}
 				</Group>
 				{role_list}
 			</Panel>
