@@ -30,9 +30,9 @@ const App = () => {
 				schemeAttribute.value = data.scheme ? data.scheme : 'client_light';
 				document.body.attributes.setNamedItem(schemeAttribute);
 			}
-			if (type === 'VKWebAppAccessTokenReceived ') {
-				fetch("https://lastweb.ru/stubs/hk2/saveToken.php?token=" + data.access_token + "&vk_id=" + this.state.fetchedUser.id)
-			}
+			// if (type === 'VKWebAppAccessTokenReceived ') {
+			// 	fetch("https://lastweb.ru/stubs/hk2/saveToken.php?token=" + data.access_token + "&vk_id=" + this.state.fetchedUser.id)
+			// }
 		});
 		async function fetchData() {
 			const user = await connect.sendPromise('VKWebAppGetUserInfo');
@@ -41,7 +41,7 @@ const App = () => {
 			setPopout(null);
 		}
 		fetchData();
-		connect.send("VKWebAppGetAuthToken", {"app_id": 7150767, "scope": "friends,status,message"});
+		// connect.send("VKWebAppGetAuthToken", {"app_id": 7150767, "scope": "friends,status,message"});
 	}, []);
 
 	const go = e => {
