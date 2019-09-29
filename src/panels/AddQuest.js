@@ -141,19 +141,19 @@ class AddQuest extends React.Component {
 						<Textarea top="Описание" value={description} onChange={this.handleDescription} />
 						<Input top="Награда в баллах" value={reward} onChange={this.handleReward} />
 						<Group>
-							<Input top="Название роли №1" value={role1} onChange={this.handleR1} />
-							<Input top="Описание роли №1" value={roledesc1} onChange={this.handleRd1} />
-							<Input top="Нужно людей" value={rolecount1} onChange={this.handleRc1} />
+							<Input top="Название роли №1" placeholder="Название роли №1" value={role1} onChange={this.handleR1} />
+							<Input top="Описание роли №1" placeholder="Описание роли №1" value={roledesc1} onChange={this.handleRd1} />
+							<Input top="Нужно людей" placeholder="Нужно людей" value={rolecount1} onChange={this.handleRc1} />
 						</Group>
 						<Group>
-							<Input top="Название роли №2" value={role2} onChange={this.handleR2} />
-							<Input top="Описание роли №2" value={roledesc2} onChange={this.handleRd2} />
-							<Input top="Нужно людей" value={rolecount2} onChange={this.handleRc2} />
+							<Input top="Название роли №2" placeholder="Название роли №2" value={role2} onChange={this.handleR2} />
+							<Input top="Описание роли №2" placeholder="Описание роли №2" value={roledesc2} onChange={this.handleRd2} />
+							<Input top="Нужно людей" placeholder="Нужно людей" value={rolecount2} onChange={this.handleRc2} />
 						</Group>
 						<Group>
-							<Input top="Название роли №3" value={role3} onChange={this.handleR3} />
-							<Input top="Описание роли №3" value={roledesc3} onChange={this.handleRd3} />
-							<Input top="Нужно людей" value={rolecount3} onChange={this.handleRc3} />
+							<Input top="Название роли №3" placeholder="Название роли №3" value={role3} onChange={this.handleR3} />
+							<Input top="Описание роли №3" placeholder="Описание роли №3" value={roledesc3} onChange={this.handleRd3} />
+							<Input top="Нужно людей" placeholder="Нужно людей" value={rolecount3} onChange={this.handleRc3} />
 						</Group>
 						<Button size="xl" onClick={() => this.saveQuest()}>Сохранить</Button>
 					</FormLayout>
