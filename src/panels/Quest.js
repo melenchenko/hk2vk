@@ -65,6 +65,12 @@ class Quest extends React.Component {
 		if (loading) {
 			return <Panel id={id}><PanelHeader>Загрузка</PanelHeader><PanelSpinner/></Panel>;
 		}
+		if (quest.admin_mode == "1") {
+			var button = <Button size="xl" level="2" onClick={go} data-to="persik">Мероприятие окончено</Button>;
+		} else {
+			var button = <Button size="xl" level="2" onClick={go} data-to="persik">Начать выполнение</Button>;
+		}
+		
 		return (
 			<Panel id={id}>
 				<PanelHeader 
@@ -75,11 +81,7 @@ class Quest extends React.Component {
 					<Div>
 						{quest.quest.description}
 					</Div>
-					<Div>
-						<Button size="xl" level="2" onClick={go} data-to="persik">
-							Начать выполнение
-						</Button>
-					</Div>
+					<Div>{button}</Div>
 				</Group>
 				<Group title="Участвуют">
 					<Div>

@@ -47,8 +47,6 @@ class Home extends React.Component {
 				console.log(result)
 				this.setState({quests: result});
 			},
-			// Примечание: важно обрабатывать ошибки именно здесь, а не в блоке catch(),
-			// чтобы не перехватывать исключения из ошибок в самих компонентах.
 			(error) => {
 				console.log(error);
 			}
