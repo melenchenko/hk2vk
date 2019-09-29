@@ -52,17 +52,37 @@ class MyQuests extends React.Component {
 		const {id, go, fetchedUser, goQuest} = this.props;
 		const { quests } = this.state;
 		let quest_list = [];
+		let active_quest_list = [];
+		let done_quest_list = [];
+		let own_quest_list = [];
 		quests.forEach((item) => {
-			quest_list.push(<Div key={item.id} data-quest={item.id} onClick={goQuest}>{item.title}</Div>);
+			var record = <Div key={item.id} data-quest={item.id} onClick={goQuest}>{item.title}</Div>;
+			quest_list.push(record);
+			if (item.is_own === "1") {
+				own_quest_list.push(record);
+			} else {
+				if (item.status === "2") {
+					done_quest_list.push(record);
+				} else {
+					active_quest_list.push(record);
+				}
+			}
 		});
+
 		return (
 			<Panel id={id}>
 				<PanelHeader 
 					left={<HeaderButton key="addquest"><Icon24Add onClick={go} data-to="addquest"/></HeaderButton>}>
 					Мои квесты
 				</PanelHeader>
-				<Group title="Мои квесты">
-					<Div>{quest_list}</Div>
+				<Group title="Активные квесты">
+					<Div>{active_quest_list}</Div>
+				</Group>
+				<Group title="Завершенные квесты">
+					<Div>{done_quest_list}</Div>
+				</Group>
+				<Group title="Созданные мной квесты">
+					<Div>{own_quest_list}</Div>
 				</Group>
 			</Panel>
 		);
