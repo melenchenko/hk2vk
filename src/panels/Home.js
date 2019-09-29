@@ -40,17 +40,7 @@ class Home extends React.Component {
 	}
 
 	getCatalog() {
-		// axios.get('https://lastweb.ru/stubs/hk2/getCatalog.php')
-		// .then(function (response) {
-		// 	// handle success
-		// 	console.log(response.data);
-		// 	this.setState({quests: response.data});
-		// })
-		// .catch(function (error) {
-		// 	// handle error
-		// 	console.log(error);
-		// });
-		fetch("https://lastweb.ru/stubs/hk2/getCatalog.php?vk_id=" + this.props.fetchedUser.id)
+		fetch("https://lastweb.ru/stubs/hk2/getCatalog.php")
 		.then(res => res.json())
 		.then(
 			(result) => {
