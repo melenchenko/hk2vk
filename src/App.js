@@ -78,7 +78,7 @@ const App = () => {
 				<Profile id='profile' fetchedUser={fetchedUser} go={go} />
 				<Users id='users' fetchedUser={fetchedUser} go={go} />
 				<Map id='map' fetchedUser={fetchedUser} go={go} />
-				<AddQuest id='addquest' fetchedUser={fetchedUser} go={go} />
+				<AddQuest id='addquest' fetchedUser={fetchedUser} go={go} goQuest={goQuest} />
 			</View>
 		</Epic>
 	);
