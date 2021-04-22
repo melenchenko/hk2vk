@@ -146,7 +146,7 @@ class AddQuest extends React.Component {
 					<Div>{msg}</Div>
 					<FormLayout>
 						<Input top="Название" value={title} onChange={this.handleTitle} />
-						<Textarea top="Описание" value={description} onChange={this.handleDescription} />
+						<Textarea top="Описание задания" value={description} onChange={this.handleDescription} />
 						<Input top="Награда в баллах" value={reward} onChange={this.handleReward} />
 						<Group>
 							<Input top="Название роли №1" placeholder="Название роли №1" value={role1} onChange={this.handleR1} />
