@@ -132,6 +132,7 @@ class Quest extends React.Component {
 		} else {
 			var button = quest.member_mode == 0 ? button_start : {};
 		}
+		const categories = quest.quest.category.map(name => <Div>Категория: {name}</Div>)
 		return (
 			<Panel id={id}>
 				<PanelHeader 
@@ -139,6 +140,7 @@ class Quest extends React.Component {
 					КВЕСТ
 				</PanelHeader>
 				<Group title={quest.quest.title}>
+					{categories}
 					<Div>Награда: {quest.quest.reward}</Div>
 					<Div>
 						{quest.quest.description}
