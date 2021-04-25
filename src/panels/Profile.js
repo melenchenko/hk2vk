@@ -59,7 +59,7 @@ class Profile extends React.Component {
 	}
 
 	saveProfile() {
-		fetch("https://lastweb.ru/stubs/hk2/setProfile.php?vk_id=" + this.props.fetchedUser.id + "&gender=" + this.state.gender + "&speak_english=" + this.state.english + "&cloth_size=" + this.state.cloth)
+		fetch("https://lastweb.ru/stubs/hk2/setProfile.php?vk_id=" + this.props.fetchedUser.id + "&gender=" + this.state.gender + "&speak_english=" + this.state.english + "&cloth_size=" + this.state.cloth + "&cat1=" + this.state.cat1 + "&cat2=" + this.state.cat2 + "&cat3=" + this.state.cat3)
 		.then(res => res.json())
 		.then(
 			(result) => {
