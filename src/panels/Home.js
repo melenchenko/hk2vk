@@ -45,7 +45,7 @@ class Home extends React.Component {
 		console.log(this.props);
 		let vk_user = null;
 		if (this.props.fetchedUser == null) {
-			let vk_user = connect.sendPromise('VKWebAppGetUserInfo');
+			let vk_user = connect.send('VKWebAppGetUserInfo');
 		} else {
 			let vk_user = this.props.fetchedUser;
 		}
