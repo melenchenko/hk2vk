@@ -61,6 +61,7 @@ class Home extends React.Component {
 		const {id, go, fetchedUser, goQuest} = this.props;
 		const { quests } = this.state;
 		let quest_list = [];
+		let moderator_quest_list = [];
 		quests.forEach((item) => {
 			if (item.is_moderator && !item.moderate_status) {
 				moderator_quest_list.push(<Div key={item.id} data-quest={item.id} onClick={goQuest}>{item.title}</Div>);
@@ -75,7 +76,7 @@ class Home extends React.Component {
 			<Group title="Доступны к выполнению">
 				<Div>{quest_list}</Div>
 			</Group>
-			{moderator_quest_list &&
+			{moderator_quest_list !== [] &&
 			<Group title="Ждут модерации">
 				<Div>{moderator_quest_list}</Div>
 			</Group>}
