@@ -74,10 +74,11 @@ class Quest extends React.Component {
 		.then(
 			(result) => {
 				console.log(result);
-				this.getQuest(quest_id);
+				this.setState({moderate_message: <Div>ОДОБРЕНО МОДЕРАТОРОМ</Div>});
 			},
 			(error) => {
 				console.log(error);
+				this.setState({moderate_message: <Div>ОДОБРЕНО МОДЕРАТОРОМ</Div>});
 			}
 		)
 	}
@@ -89,10 +90,11 @@ class Quest extends React.Component {
 		.then(
 			(result) => {
 				console.log(result);
-				this.getQuest(quest_id);
+				this.setState({moderate_message: <Div>ОТКЛОНЕНО МОДЕРАТОРОМ</Div>});
 			},
 			(error) => {
 				console.log(error);
+				this.setState({moderate_message: <Div>ОТКЛОНЕНО МОДЕРАТОРОМ</Div>});
 			}
 		)
 	}
