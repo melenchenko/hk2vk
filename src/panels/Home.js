@@ -40,7 +40,7 @@ class Home extends React.Component {
 	}
 
 	getCatalog() {
-		fetch("https://lastweb.ru/stubs/hk2/getCatalog.php")
+		fetch("https://lastweb.ru/stubs/hk2/getCatalog.php?vk_id=" + this.props.fetchedUser.id)
 		.then(res => res.json())
 		.then(
 			(result) => {
@@ -62,6 +62,9 @@ class Home extends React.Component {
 		const { quests } = this.state;
 		let quest_list = [];
 		quests.forEach((item) => {
+			if (item.is_moderator && !item.moderate_status) {
+				moderator_quest_list.push(<Div key={item.id} data-quest={item.id} onClick={goQuest}>{item.title}</Div>);
+			}
 			quest_list.push(<Div key={item.id} data-quest={item.id} onClick={goQuest}>{item.title}</Div>);
 		});
 		let result = <Panel id={id}>
@@ -72,6 +75,10 @@ class Home extends React.Component {
 			<Group title="Доступны к выполнению">
 				<Div>{quest_list}</Div>
 			</Group>
+			{moderator_quest_list &&
+			<Group title="Ждут модерации">
+				<Div>{moderator_quest_list}</Div>
+			</Group>}
 		</Panel>;
 		return result;
 	}
