@@ -40,6 +40,7 @@ class Home extends React.Component {
 	}
 
 	getCatalog() {
+		console.log(this.props)
 		fetch("https://lastweb.ru/stubs/hk2/getCatalog.php?vk_id=" + this.props.fetchedUser.id)
 		.then(res => res.json())
 		.then(
