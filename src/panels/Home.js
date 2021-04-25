@@ -40,9 +40,16 @@ class Home extends React.Component {
 	}
 
 	getCatalog() {
+		console.log('props');
 		console.log(this.props);
-		// fetch("https://lastweb.ru/stubs/hk2/getCatalog.php?vk_id=" + this.props.fetchedUser.id)
-		fetch("https://lastweb.ru/stubs/hk2/getCatalog.php?vk_id=" + '455172878')
+		if (this.props.fetchedUser == null) {
+			const vk_user = await connect.sendPromise('VKWebAppGetUserInfo');
+		} else {
+			const vk_user = this.props.fetchedUser;
+		}
+		
+		// fetch("https://lastweb.ru/stubs/hk2/getCatalog.php?vk_id=" + '455172878')
+		fetch("https://lastweb.ru/stubs/hk2/getCatalog.php?vk_id=" + vk_user.id)
 		.then(res => res.json())
 		.then(
 			(result) => {
@@ -72,7 +79,9 @@ class Home extends React.Component {
 					moderator_quest_list.push(<Div key={item.id} data-quest={item.id} onClick={goQuest}>{item.title}</Div>);
 				}				
 			}
-			quest_list.push(<Div key={item.id} data-quest={item.id} onClick={goQuest}>{item.title}</Div>);
+			if (item.moderate_status == "1") {
+				quest_list.push(<Div key={item.id} data-quest={item.id} onClick={goQuest}>{item.title}</Div>);
+			}
 		});
 		console.log('show_moderator');
 		console.log(show_moderator)
