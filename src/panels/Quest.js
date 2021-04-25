@@ -163,7 +163,7 @@ class Quest extends React.Component {
 		if (quest.admin_mode == 1) {
 			var button = button_finish;
 		} else {
-			var button = quest.member_mode == 0 ? button_start : {};
+			var button = quest.member_mode == 0 ? button_start : null;
 		}
 		const categories = quest.quest.category.map(name => <Div>Категория: {name}</Div>);
 		if (moderate_message == null) {
