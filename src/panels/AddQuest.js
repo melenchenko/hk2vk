@@ -8,7 +8,7 @@ import Group from '@vkontakte/vkui/dist/components/Group/Group';
 import { HeaderButton } from '@vkontakte/vkui';
 import Icon24Place from '@vkontakte/icons/dist/24/place';
 import Icon24Add from '@vkontakte/icons/dist/24/add';
-import { FormLayout, Input, Textarea, Div } from '@vkontakte/vkui';
+import { FormLayout, Input, Textarea, Div, Select } from '@vkontakte/vkui';
 
 class AddQuest extends React.Component {
 	constructor(props) {
