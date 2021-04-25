@@ -31,11 +31,13 @@ class Profile extends React.Component {
 			profile: {},
 			cloth: undefined,
 			gender: undefined,
-			english: undefined
+			english: undefined,
+			category: undefined
 		};
 		this.handleCloth = this.handleCloth.bind(this);
 		this.handleGender = this.handleGender.bind(this);
 		this.handleEnglish = this.handleEnglish.bind(this);
+		this.handleCategory = this.handleCategory.bind(this);
 	}
 
 	getProfile() {
@@ -82,11 +84,15 @@ class Profile extends React.Component {
 		this.setState({english: event.target.checked ? '1' : '0'});
 	}
 
+	handleCategory(event) {
+		this.setState({english: event.target.checked ? '1' : '0'});
+	}
+
 	render() {
 		let id = this.props.id;
 		let go = this.props.go;
 		let fetchedUser = this.props.fetchedUser;
-		let { profile, cloth, english, gender } = this.state;
+		let { profile, cloth, english, gender, category } = this.state;
 		if (cloth === undefined && profile.cloth_size !== undefined) {
 			this.setState({cloth: profile.cloth_size});
 		}
@@ -96,6 +102,15 @@ class Profile extends React.Component {
 		if (gender === undefined && profile.gender !== undefined) {
 			this.setState({gender: profile.gender});
 		}
+		if (category === undefined && profile.category !== undefined) {
+			this.setState({category: profile.category});
+		}
+		const category_selectors = category.map(curr_cat => 
+			<Checkbox checked={curr_cat.enabled == '1'} data-name="category" data-id="curr_cat.id" value={curr_cat.enabled} 
+					  onChange={this.handleCategory}>
+  				{curr_cat.title}
+			</Checkbox>
+		)
 		return (
 			<Panel id={id}>
 				<PanelHeader 
@@ -118,7 +133,12 @@ class Profile extends React.Component {
 							<option value="0" >Женский</option>
 						</Select>
 						<Input data-name="cloth" top="Размер одежды" value={cloth} onChange={this.handleCloth} />		
-						<Checkbox checked={this.state.english == '1'} data-name="english" value={this.state.english} onChange={this.handleEnglish}>Знание английского языка</Checkbox>
+						<Checkbox checked={this.state.english == '1'} data-name="english" value={this.state.english} 
+								  onChange={this.handleEnglish}>
+							Знание английского языка
+						</Checkbox>
+						<Div>Категории</Div>
+						<Div>{category_selectors}</Div>
 						<Button size="xl" onClick={() => this.saveProfile()}>Сохранить</Button>
 					</FormLayout>
 				</Group>
