@@ -37,6 +37,7 @@ const App = () => {
 			// setUser({id:455172878});
 			setPopout(null);
 		}
+		connect.send('VKWebAppAllowNotifications');
 		fetchData();
 	}, []);
 
