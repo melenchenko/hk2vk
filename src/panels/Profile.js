@@ -32,12 +32,16 @@ class Profile extends React.Component {
 			cloth: undefined,
 			gender: undefined,
 			english: undefined,
-			category: undefined
+			cat1: undefined,
+			cat2: undefined,
+			cat3: undefined
 		};
 		this.handleCloth = this.handleCloth.bind(this);
 		this.handleGender = this.handleGender.bind(this);
 		this.handleEnglish = this.handleEnglish.bind(this);
-		this.handleCategory = this.handleCategory.bind(this);
+		this.handleCat1 = this.handleCat1.bind(this);
+		this.handleCat2 = this.handleCat2.bind(this);
+		this.handleCat3 = this.handleCat3.bind(this);
 	}
 
 	getProfile() {
@@ -84,15 +88,23 @@ class Profile extends React.Component {
 		this.setState({english: event.target.checked ? '1' : '0'});
 	}
 
-	handleCategory(event) {
-		this.setState({english: event.target.checked ? '1' : '0'});
+	handleCat1(event) {
+		this.setState({cat1: event.target.checked ? '1' : '0'});
+	}
+
+	handleCat2(event) {
+		this.setState({cat1: event.target.checked ? '1' : '0'});
+	}
+
+	handleCat3(event) {
+		this.setState({cat1: event.target.checked ? '1' : '0'});
 	}
 
 	render() {
 		let id = this.props.id;
 		let go = this.props.go;
 		let fetchedUser = this.props.fetchedUser;
-		let { profile, cloth, english, gender, category } = this.state;
+		let { profile, cloth, english, gender, cat1, cat2, cat3 } = this.state;
 		if (cloth === undefined && profile.cloth_size !== undefined) {
 			this.setState({cloth: profile.cloth_size});
 		}
@@ -102,15 +114,15 @@ class Profile extends React.Component {
 		if (gender === undefined && profile.gender !== undefined) {
 			this.setState({gender: profile.gender});
 		}
-		if (category === undefined && profile.category !== undefined) {
-			this.setState({category: profile.category});
+		if (cat1 === undefined && profile.cat1 !== undefined) {
+			this.setState({cat1: profile.cat1});
 		}
-		const category_selectors = category.map(curr_cat => 
-			<Checkbox checked={curr_cat.enabled == '1'} data-name="category" data-id="curr_cat.id" value={curr_cat.enabled} 
-					  onChange={this.handleCategory}>
-  				{curr_cat.title}
-			</Checkbox>
-		)
+		if (cat2 === undefined && profile.cat2 !== undefined) {
+			this.setState({cat2: profile.cat2});
+		}
+		if (cat3 === undefined && profile.cat3 !== undefined) {
+			this.setState({cat3: profile.cat3});
+		}
 		return (
 			<Panel id={id}>
 				<PanelHeader 
@@ -138,7 +150,18 @@ class Profile extends React.Component {
 							Знание английского языка
 						</Checkbox>
 						<Div>Категории</Div>
-						<Div>{category_selectors}</Div>
+						<Checkbox checked={this.state.cat1 == '1'} data-name="cat1" value={this.state.cat1} 
+								  onChange={this.handleCat1}>
+							Разработка сайта
+						</Checkbox>
+						<Checkbox checked={this.state.cat2 == '1'} data-name="cat2" value={this.state.cat2} 
+								  onChange={this.handleCat2}>
+							Разработка чат-бота
+						</Checkbox>
+						<Checkbox checked={this.state.cat3 == '1'} data-name="cat3" value={this.state.cat3} 
+								  onChange={this.handleCat3}>
+							Дизайн
+						</Checkbox>
 						<Button size="xl" onClick={() => this.saveProfile()}>Сохранить</Button>
 					</FormLayout>
 				</Group>
