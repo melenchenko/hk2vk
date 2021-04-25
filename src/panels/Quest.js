@@ -34,6 +34,7 @@ class Quest extends React.Component {
 			quest: {},
 			loading: true,
 			user_list: [],
+			moderate_message: null
 		};
 	}
 
@@ -66,6 +67,36 @@ class Quest extends React.Component {
 		this.getQuest(quest_id);
 	}
 
+	approveQuest() {
+		const quest_id = global._quest_id;
+		fetch("https://lastweb.ru/stubs/hk2/methods.php?method=approveQuest&quest_id=" + quest_id + "&vk_id=" + this.props.fetchedUser.id)
+		.then(res => res.json())
+		.then(
+			(result) => {
+				console.log(result);
+				this.setState({moderate_message: null});
+			},
+			(error) => {
+				console.log(error);
+			}
+		)
+	}
+
+	rejectQuest() {
+		const quest_id = global._quest_id;
+		fetch("https://lastweb.ru/stubs/hk2/methods.php?method=rejectQuest&quest_id=" + quest_id + "&vk_id=" + this.props.fetchedUser.id)
+		.then(res => res.json())
+		.then(
+			(result) => {
+				console.log(result);
+				this.setState({moderate_message: <Div>ОТКЛОНЕНО МОДЕРАТОРОМ</Div>});
+			},
+			(error) => {
+				console.log(error);
+			}
+		)
+	}
+
 	startQuest() {
 		const quest_id = global._quest_id;
 		fetch("https://lastweb.ru/stubs/hk2/methods.php?method=startQuest&quest_id=" + quest_id + "&vk_id=" + this.props.fetchedUser.id)
@@ -96,7 +127,7 @@ class Quest extends React.Component {
 
 	render() {
 		const {id, go, fetchedUser} = this.props;
-		const { quest, loading, user_list } = this.state;
+		let { quest, loading, user_list, moderate_message } = this.state;
 		console.log('quest=');
 		console.log(quest);
 		if (loading) {
@@ -132,13 +163,22 @@ class Quest extends React.Component {
 		} else {
 			var button = quest.member_mode == 0 ? button_start : {};
 		}
-		const categories = quest.quest.category.map(name => <Div>Категория: {name}</Div>)
-		let moderate_message = null;
-		if (quest.quest.moderate_status == "0") {
-			moderate_message = <Div>ЖДЕТ МОДЕРАЦИИ</Div>;
-		} else if (quest.quest.moderate_status == "-1") {
-			moderate_message = <Div>ОТКЛОНЕНО МОДЕРАТОРОМ</Div>;
-		}
+		const categories = quest.quest.category.map(name => <Div>Категория: {name}</Div>);
+		if (moderate_message == null) {
+			if (quest.quest.is_moderator && quest.quest.moderate_status == "0") {
+				moderate_message = <Div>
+					<Button level="2" onClick={() => this.approveQuest()}>Модерация: ОДОБРИТЬ</Button>
+					<Button level="2" onClick={() => this.rejectQuest()}>Модерация: ОТКЛОНИТЬ</Button>
+				</Div>;
+			} else {
+				if (quest.quest.moderate_status == "0") {
+					moderate_message = <Div>ЖДЕТ МОДЕРАЦИИ</Div>;
+				} else if (quest.quest.moderate_status == "-1") {
+					moderate_message = <Div>ОТКЛОНЕНО МОДЕРАТОРОМ</Div>;
+				}
+			}	
+		}		
+		
 		return (
 			<Panel id={id}>
 				<PanelHeader 
