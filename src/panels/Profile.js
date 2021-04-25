@@ -73,6 +73,7 @@ class Profile extends React.Component {
 	}
 
 	componentDidMount() {
+		console.log(this.props);
 		this.getProfile();
 	}
 
