@@ -93,11 +93,11 @@ class Profile extends React.Component {
 	}
 
 	handleCat2(event) {
-		this.setState({cat1: event.target.checked ? '1' : '0'});
+		this.setState({cat2: event.target.checked ? '1' : '0'});
 	}
 
 	handleCat3(event) {
-		this.setState({cat1: event.target.checked ? '1' : '0'});
+		this.setState({cat3: event.target.checked ? '1' : '0'});
 	}
 
 	render() {
