@@ -133,6 +133,12 @@ class Quest extends React.Component {
 			var button = quest.member_mode == 0 ? button_start : {};
 		}
 		const categories = quest.quest.category.map(name => <Div>Категория: {name}</Div>)
+		let moderate_message = null;
+		if (quest.quest.moderate_status == "0") {
+			moderate_message = <Div>ЖДЕТ МОДЕРАЦИИ</Div>;
+		} else if (quest.quest.moderate_status == "-1") {
+			moderate_message = <Div>ОТКЛОНЕНО МОДЕРАТОРОМ</Div>;
+		}
 		return (
 			<Panel id={id}>
 				<PanelHeader 
@@ -140,6 +146,7 @@ class Quest extends React.Component {
 					КВЕСТ
 				</PanelHeader>
 				<Group title={quest.quest.title}>
+					{moderate_message}
 					{categories}
 					<Div>Награда: {quest.quest.reward}</Div>
 					<Div>
