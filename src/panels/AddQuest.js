@@ -30,6 +30,7 @@ class AddQuest extends React.Component {
 		this.state = {
 			title: '',
 			description: '',
+			category: '',
 			reward: '',
 			msg: '',
 			role1: '',
@@ -44,6 +45,7 @@ class AddQuest extends React.Component {
 		};
 		this.handleTitle = this.handleTitle.bind(this);
 		this.handleDescription = this.handleDescription.bind(this);
+		this.handleCategory = this.handleCategory.bind(this);
 		this.handleReward = this.handleReward.bind(this);
 		this.handleR1 = this.handleR1.bind(this);
 		this.handleRd1 = this.handleRd1.bind(this);
@@ -104,6 +106,10 @@ class AddQuest extends React.Component {
 		this.setState({description: event.target.value});
 	}
 
+	handleCategory(event) {
+		this.setState({category: event.target.value});
+	}
+
 	handleReward(event) {
 		this.setState({reward: event.target.value});
 	}
@@ -112,12 +118,12 @@ class AddQuest extends React.Component {
 		var rblock = "&role1=" + this.state.role1 + "&role2=" + this.state.role2 + "&role3=" + this.state.role3; 
 		var rdblock = "&roledesc1=" + this.state.roledesc1 + "&roledesc2=" + this.state.roledesc2 + "&roledesc3=" + this.state.roledesc3; 
 		var rcblock = "&rolecount1=" + this.state.rolecount1 + "&rolecount2=" + this.state.rolecount2 + "&rolecount3=" + this.state.rolecount3; 
-		fetch("https://lastweb.ru/stubs/hk2/addQuest.php?vk_id=" + this.props.fetchedUser.id + "&title=" + this.state.title + "&description=" + this.state.description + "&reward=" + this.state.reward + rblock + rdblock + rcblock)
+		fetch("https://lastweb.ru/stubs/hk2/addQuest.php?vk_id=" + this.props.fetchedUser.id + "&title=" + this.state.title + "&description=" + this.state.description + "&category=" + this.state.category + "&reward=" + this.state.reward + rblock + rdblock + rcblock)
 		.then(res => res.json())
 		.then(
 			(result) => {
 				console.log(result)
-				this.setState({title: '', description: '', reward: '', msg: 'Квест создан', role1: '',
+				this.setState({title: '', description: '', category: '', reward: '', msg: 'Квест создан', role1: '',
 				roledesc1: '',
 				rolecount1: '',
 				role2: '',
@@ -135,7 +141,7 @@ class AddQuest extends React.Component {
 
 	render() {
 		const {id, go, fetchedUser, goQuest} = this.props;
-		const {title, description, reward, msg, role1, role2, role3, roledesc1, roledesc2, roledesc3, rolecount1, rolecount2, rolecount3} = this.state;
+		const {title, description, category, reward, msg, role1, role2, role3, roledesc1, roledesc2, roledesc3, rolecount1, rolecount2, rolecount3} = this.state;
 		return (
 			<Panel id={id}>
 				<PanelHeader 
@@ -146,6 +152,11 @@ class AddQuest extends React.Component {
 					<Div>{msg}</Div>
 					<FormLayout>
 						<Input top="Название" value={title} onChange={this.handleTitle} />
+						<Select data-name="category" top="Категория" value={category} onChange={this.handleCategory}>
+							<option value="1" >Разработка сайта</option>
+							<option value="2" >Разработка чат-бота</option>
+							<option value="3" >Дизайн</option>
+						</Select>
 						<Textarea top="Описание квеста" value={description} onChange={this.handleDescription} />
 						<Input top="Награда в баллах" value={reward} onChange={this.handleReward} />
 						<Group>
