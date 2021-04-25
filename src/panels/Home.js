@@ -64,9 +64,13 @@ class Home extends React.Component {
 		const { quests } = this.state;
 		let quest_list = [];
 		let moderator_quest_list = [];
+		let show_moderator = false;
 		quests.forEach((item) => {
-			if (item.is_moderator && item.moderate_status == "0") {
-				moderator_quest_list.push(<Div key={item.id} data-quest={item.id} onClick={goQuest}>{item.title}</Div>);
+			if (item.is_moderator) {
+				show_moderator = true;
+				if (item.moderate_status == "0") {
+					moderator_quest_list.push(<Div key={item.id} data-quest={item.id} onClick={goQuest}>{item.title}</Div>);
+				}				
 			}
 			quest_list.push(<Div key={item.id} data-quest={item.id} onClick={goQuest}>{item.title}</Div>);
 		});
@@ -80,7 +84,7 @@ class Home extends React.Component {
 			<Group title="Доступны к выполнению">
 				<Div>{quest_list}</Div>
 			</Group>
-			{moderator_quest_list !== [] &&
+			{show_moderator &&
 			<Group title="Ждут модерации">
 				<Div>{moderator_quest_list}</Div>
 			</Group>}
