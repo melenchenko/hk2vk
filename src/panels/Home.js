@@ -74,8 +74,8 @@ class Home extends React.Component {
 			}
 			quest_list.push(<Div key={item.id} data-quest={item.id} onClick={goQuest}>{item.title}</Div>);
 		});
-		console.log('moderator list');
-		console.log(moderator_quest_list)
+		console.log('show_moderator');
+		console.log(show_moderator)
 		let result = <Panel id={id}>
 			<PanelHeader 
 				left={<HeaderButton key="addquest"><Icon24Add onClick={go} data-to="addquest"/></HeaderButton>}>
