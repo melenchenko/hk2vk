@@ -1,4 +1,5 @@
 import React from 'react';
+import connect from '@vkontakte/vk-connect';
 import PropTypes from 'prop-types';
 import Panel from '@vkontakte/vkui/dist/components/Panel/Panel';
 import PanelHeader from '@vkontakte/vkui/dist/components/PanelHeader/PanelHeader';
@@ -42,10 +43,11 @@ class Home extends React.Component {
 	getCatalog() {
 		console.log('props');
 		console.log(this.props);
+		let vk_user = null;
 		if (this.props.fetchedUser == null) {
-			const vk_user = connect.sendPromise('VKWebAppGetUserInfo');
+			let vk_user = connect.sendPromise('VKWebAppGetUserInfo');
 		} else {
-			const vk_user = this.props.fetchedUser;
+			let vk_user = this.props.fetchedUser;
 		}
 		
 		// fetch("https://lastweb.ru/stubs/hk2/getCatalog.php?vk_id=" + '455172878')
