@@ -74,7 +74,7 @@ class Quest extends React.Component {
 		.then(
 			(result) => {
 				console.log(result);
-				this.setState({moderate_message: null});
+				this.getQuest(quest_id);
 			},
 			(error) => {
 				console.log(error);
@@ -89,7 +89,7 @@ class Quest extends React.Component {
 		.then(
 			(result) => {
 				console.log(result);
-				this.setState({moderate_message: <Div>ОТКЛОНЕНО МОДЕРАТОРОМ</Div>});
+				this.getQuest(quest_id);
 			},
 			(error) => {
 				console.log(error);
