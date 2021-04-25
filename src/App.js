@@ -39,7 +39,9 @@ const App = () => {
 		}
 		console.log('window.location.search');
 		console.log(window.location.search);
-		connect.send('VKWebAppAllowNotifications');
+		if (window.location.search.indexOf('vk_are_notifications_enabled=0') >= 0) {
+			connect.send('VKWebAppAllowNotifications');
+		}		
 		fetchData();
 	}, []);
 
