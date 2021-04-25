@@ -65,11 +65,13 @@ class Home extends React.Component {
 		let quest_list = [];
 		let moderator_quest_list = [];
 		quests.forEach((item) => {
-			if (item.is_moderator && !item.moderate_status) {
+			if (item.is_moderator && item.moderate_status == "0") {
 				moderator_quest_list.push(<Div key={item.id} data-quest={item.id} onClick={goQuest}>{item.title}</Div>);
 			}
 			quest_list.push(<Div key={item.id} data-quest={item.id} onClick={goQuest}>{item.title}</Div>);
 		});
+		console.log('moderator list');
+		console.log(moderator_quest_list)
 		let result = <Panel id={id}>
 			<PanelHeader 
 				left={<HeaderButton key="addquest"><Icon24Add onClick={go} data-to="addquest"/></HeaderButton>}>
