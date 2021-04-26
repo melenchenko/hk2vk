@@ -163,7 +163,7 @@ class Quest extends React.Component {
 		if (quest.admin_mode == 1) {
 			var button = button_finish;
 		} else {
-			var button = quest.member_mode == 0 ? button_start : null;
+			var button = (quest.member_mode == 0 && quest.full_completed == 0) ? button_start : null;
 		}
 		const categories = quest.quest.category.map(name => <Div>Категория: {name}</Div>);
 		if (moderate_message == null) {
@@ -179,7 +179,11 @@ class Quest extends React.Component {
 					moderate_message = <Div>ОТКЛОНЕНО МОДЕРАТОРОМ</Div>;
 				}
 			}	
-		}		
+		}
+		let full_completed_message = null;
+		if (quest.full_completed == 1) {
+			full_completed_message = <Div>ВСЕ МЕСТА ДЛЯ ВОЛОНТЕРОВ ЗАНЯТЫ</Div>
+		}
 		
 		return (
 			<Panel id={id}>
@@ -189,6 +193,7 @@ class Quest extends React.Component {
 				</PanelHeader>
 				<Group title={quest.quest.title}>
 					{moderate_message}
+					{full_completed_message}
 					{categories}
 					<Div>Награда: {quest.quest.reward}</Div>
 					<Div>
