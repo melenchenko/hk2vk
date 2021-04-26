@@ -30,7 +30,7 @@ class AddQuest extends React.Component {
 		this.state = {
 			title: '',
 			description: '',
-			category: '',
+			category: '1',
 			reward: '',
 			msg: '',
 			role1: '',
